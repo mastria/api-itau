@@ -193,9 +193,11 @@ class Request
         // Verify error
         if ($response === false) {
             $errorMessage = curl_error($curl);
+            var_dump($errorMessage);
         }
 
         $statusCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        var_dump($statusCode);
         curl_close($curl);
 
         if ($statusCode >= 400) {

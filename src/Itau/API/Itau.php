@@ -203,6 +203,7 @@ class Itau
             $response = $request->post($this, "/cobrancas_imediata_pix", $pix->toJSON());
 
         } catch (\Exception $e) {
+            var_dump($e);
             #return $this->generateErrorResponse($e);
         }
     }
