@@ -147,6 +147,7 @@ class Request
 
     private function send(Itau $credentials, $url_path, $method, $jsonBody = null)
     {
+        echo "<br><Br>URL:<hr>";
         var_dump($this->getFullUrl($url_path));
         $curl = curl_init($this->getFullUrl($url_path));
 
@@ -193,10 +194,12 @@ class Request
         // Verify error
         if ($response === false) {
             $errorMessage = curl_error($curl);
+            echo "<br><Br>Mensagem Erro:<hr>";
             var_dump($errorMessage);
         }
 
         $statusCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
+        echo "<br><Br>Status Code:<hr>";
         var_dump($statusCode);
         curl_close($curl);
 
@@ -218,6 +221,7 @@ class Request
         }
 
         $responseDecode = json_decode($response, true);
+        echo "<br><Br>Resposta:<hr>";
 var_dump($responseDecode);
         if (is_array($responseDecode) && isset($responseDecode['error'])) {
             throw new ItauException($responseDecode['error_description'], 100);
