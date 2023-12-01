@@ -195,12 +195,13 @@ class Itau
     {
         try{
             if ($this->debug) {
-                print $pix->toJSON();
+               
             }
+            print $pix->toJSON();
 
             $request = new Request($this);
-            $response = $request->post($this, "/v1/payments/qrcode/pix", $pix->toJSON());
-            
+            $response = $request->post($this, "/cobrancas_imediata_pix", $pix->toJSON());
+
         } catch (\Exception $e) {
             #return $this->generateErrorResponse($e);
         }
