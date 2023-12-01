@@ -45,8 +45,6 @@ class Itau
         $this->setEnvironment(Environment::production());
         $this->setKeySession($keySession);
 
-        var_dump($this);
-
         $request = new Request($this);
         $request->auth($this);
     }
@@ -191,5 +189,32 @@ class Itau
         $this->debug = $debug;
 
         return $this;
+    }
+
+    public function pix(Pix $pix)
+    {
+        try{
+            if ($this->debug) {
+                print $pix->toJSON();
+            }
+
+            $request = new Request($this);
+            $response = $request->post($this, "/v1/payments/qrcode/pix", $pix->toJSON());
+            
+        } catch (\Exception $e) {
+            #return $this->generateErrorResponse($e);
+        }
+    }
+
+    private function generateErrorResponse($e)
+    {
+        /*$error = new BaseResponse();
+        $error->mapperJson(json_decode($e->getMessage(), true));
+        
+        if (empty($error->getStatus())) {
+            $error->setStatus(Transaction::STATUS_ERROR);
+        }
+        
+        return $error;*/
     }
 }
