@@ -204,7 +204,7 @@ class Itau
 
         } catch (\Exception $e) {
             echo "<br><br>Exception<hr>";
-            var_dump($e);
+            var_dump($e->getMessage());
             #return $this->generateErrorResponse($e);
         }
     }
