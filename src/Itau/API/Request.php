@@ -80,6 +80,8 @@ class Request
         } catch (Exception $e) {
             throw new ItauException($e->getMessage(), 100);
         }
+        echo "<br><br>RESPONSE TOKEN COMPLATA<hr>";
+        var_dump($response);
         // Verify error
         if ($response === false) {
             $errorMessage = curl_error($curl);
