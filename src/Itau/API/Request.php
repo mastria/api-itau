@@ -110,7 +110,7 @@ class Request
         if (is_array($responseDecode) && isset($responseDecode['error'])) {
             throw new ItauException($responseDecode['error_description'], 100);
         }
-
+        echo "<br>TOKEN DA RESPOSTA<hr>{$responseDecode["access_token"]}";
         $credentials->setAuthorizationToken($responseDecode["access_token"]);
 
         // Save auth session
