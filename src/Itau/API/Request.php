@@ -80,8 +80,6 @@ class Request
         } catch (Exception $e) {
             throw new ItauException($e->getMessage(), 100);
         }
-        echo "<br><br>RESPONSE TOKEN COMPLATA<hr>";
-        var_dump($response);
         // Verify error
         if ($response === false) {
             $errorMessage = curl_error($curl);
@@ -165,7 +163,7 @@ class Request
         );
 
         $defaultCurlOptions[CURLOPT_HTTPHEADER][] = 'x-itau-correlationID: 2';
-        $defaultCurlOptions[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . $credentials->getAuthorizationToken();
+        $defaultCurlOptions[CURLOPT_HTTPHEADER][] = 'x-itau-apikey: ' . $credentials->getAuthorizationToken();
 
         // Add custom method
         if (in_array($method, [
