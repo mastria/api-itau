@@ -163,7 +163,8 @@ class Request
         );
 
         $defaultCurlOptions[CURLOPT_HTTPHEADER][] = 'x-itau-correlationID: 2';
-        $defaultCurlOptions[CURLOPT_HTTPHEADER][] = 'x-itau-apikey: ' . $credentials->getAuthorizationToken();
+        $defaultCurlOptions[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . $credentials->getAuthorizationToken();
+        $defaultCurlOptions[CURLOPT_HTTPHEADER][] = 'x-itau-apikey: ' . $credentials->getClientId();
 
         // Add custom method
         if (in_array($method, [
