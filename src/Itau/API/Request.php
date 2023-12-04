@@ -155,7 +155,7 @@ class Request
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 60,
             CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json; charset=utf-8'
+                'Content-Type: application/x-www-form-urlencoded'
             ),
             CURLOPT_SSL_VERIFYHOST => 2,
             CURLOPT_SSL_VERIFYPEER => 0
