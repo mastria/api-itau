@@ -110,7 +110,8 @@ class Request
         if (is_array($responseDecode) && isset($responseDecode['error'])) {
             throw new ItauException($responseDecode['error_description'], 100);
         }
-        echo "<br>RESPOSTA<hr>{$responseDecode}";
+        echo "<br>RESPOSTA<hr>";
+        var_dump($responseDecode);
         $credentials->setAuthorizationToken($responseDecode["access_token"]);
 
         // Save auth session
@@ -187,8 +188,10 @@ class Request
             $response = curl_exec($curl);
             echo "<br>RESPONSE DA REQUISIÇÃO:<hr>";
             var_dump($response);
-            
+
         } catch (Exception $e) {
+            echo "<br>RESPONSE DA REQUISIÇÃO:<hr>";
+            var_dump($response);
             throw new ItauException("Request Exception, error: {$e->getMessage()}", 100);
         }
 
