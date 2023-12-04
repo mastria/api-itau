@@ -110,7 +110,7 @@ class Request
         if (is_array($responseDecode) && isset($responseDecode['error'])) {
             throw new ItauException($responseDecode['error_description'], 100);
         }
-        echo "<br>TOKEN DA RESPOSTA<hr>{$responseDecode["access_token"]}";
+        echo "<br>RESPOSTA<hr>{$responseDecode}";
         $credentials->setAuthorizationToken($responseDecode["access_token"]);
 
         // Save auth session
@@ -147,8 +147,6 @@ class Request
 
     private function send(Itau $credentials, $url_path, $method, $jsonBody = null)
     {
-        echo "<br><Br>URL:<hr>";
-        var_dump($this->getFullUrl($url_path));
         $curl = curl_init($this->getFullUrl($url_path));
 
         $defaultCurlOptions = array(
@@ -187,6 +185,9 @@ class Request
 
         try {
             $response = curl_exec($curl);
+            echo "<br>RESPONSE DA REQUISIÇÃO:<hr>";
+            var_dump($response);
+            
         } catch (Exception $e) {
             throw new ItauException("Request Exception, error: {$e->getMessage()}", 100);
         }
