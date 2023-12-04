@@ -155,7 +155,7 @@ class Request
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 60,
             CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/x-www-form-urlencoded'
+                'Content-Type: application/json; charset=utf-8'
             ),
             CURLOPT_SSL_VERIFYHOST => 2,
             CURLOPT_SSL_VERIFYPEER => 0
@@ -178,7 +178,7 @@ class Request
             curl_setopt($curl, CURLOPT_POSTFIELDS, is_string($jsonBody) ? $jsonBody : json_encode($jsonBody));
         }
 
-        curl_setopt($curl, CURLOPT_ENCODING, "");
+        #curl_setopt($curl, CURLOPT_ENCODING, "");
         curl_setopt_array($curl, $defaultCurlOptions);
 
         $response = null;
