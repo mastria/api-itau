@@ -166,7 +166,7 @@ class Itau
         return $this;
     }
 
-    public function pix(Pix $pix)
+    public function pix(Pix $pix): PixResponse
     {
         try{
             if ($this->debug) {
@@ -174,9 +174,14 @@ class Itau
             }
 
             $request = new Request($this);
-            $this->response = $request->post($this, "{$this->getEnvironment()->getApiPixUrl()}/cob", $pix->toJSON());
-
-            return $this;
+            $response = $request->post($this, "{$this->getEnvironment()->getApiPixUrl()}/cob", $pix->toJSON());
+           
+            $pixResponse = new PixResponse();
+            // Add fields do not return in response
+            $pixResponse->mapperJson($pix->toArray());
+            // Add response fields
+            $pixResponse->mapperJson($response);
+            return $pixResponse;
 
         } catch (\Exception $e) {
             return $this->generateErrorResponse($e);
