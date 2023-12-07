@@ -194,4 +194,15 @@ class Itau
         
         return $error;
     }
+
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    public function getBaseResponse()
+    {
+        $base = new BaseResponse();
+        return $base->mapperJson($this->response);
+    }
 }
