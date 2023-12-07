@@ -110,8 +110,6 @@ class Request
         if (is_array($responseDecode) && isset($responseDecode['error'])) {
             throw new ItauException($responseDecode['error_description'], 100);
         }
-        echo "<br>RESPOSTA<hr>";
-        var_dump($responseDecode);
         $credentials->setAuthorizationToken($responseDecode["access_token"]);
 
         // Save auth session
@@ -157,6 +155,9 @@ class Request
             CURLOPT_HTTPHEADER => array(
                 'Content-Type: application/json; charset=utf-8'
             ),
+            CURLOPT_SSLCERT => $credentials->getCertificate(),
+            CURLOPT_SSLKEY => $credentials->getCertificateKey(),
+            CURLOPT_CAINFO => $credentials->getCertificate(),
             CURLOPT_SSL_VERIFYHOST => 2,
             CURLOPT_SSL_VERIFYPEER => 0
         );
