@@ -40,10 +40,7 @@ class Request
     public function auth(Itau $credentials)
     {
         if ($this->verifyAuthSession($credentials)) {
-            var_dump('usou a mesma credencial');
             return $credentials;
-        } else {
-            var_dump('Não usou a mesma credencial');
         }
             
         $endpoint = $credentials->getEnvironment()->getApiUrlAuth();
@@ -123,7 +120,6 @@ class Request
 
     private function verifyAuthSession(Itau $credentials)
     {
-        var_dump(['keySession' => $credentials->getKeySession(), 'session' => $_SESSION]);
         if ($credentials->getKeySession() && isset($_SESSION[$credentials->getKeySession()]) && $_SESSION[$credentials->getKeySession()]["access_token"]) {
 
             $auth = $_SESSION[$credentials->getKeySession()];
@@ -180,7 +176,6 @@ class Request
             curl_setopt($curl, CURLOPT_POSTFIELDS, is_string($jsonBody) ? $jsonBody : json_encode($jsonBody));
         }
 
-        #curl_setopt($curl, CURLOPT_ENCODING, "");
         curl_setopt_array($curl, $defaultCurlOptions);
 
         $response = null;
@@ -188,25 +183,16 @@ class Request
 
         try {
             $response = curl_exec($curl);
-            echo "<br>RESPONSE DA REQUISIÇÃO:<hr>";
-            var_dump($response);
-
         } catch (Exception $e) {
-            echo "<br>RESPONSE DA REQUISIÇÃO:<hr>";
-            var_dump($response);
             throw new ItauException("Request Exception, error: {$e->getMessage()}", 100);
         }
 
         // Verify error
         if ($response === false) {
             $errorMessage = curl_error($curl);
-            echo "<br><Br>Mensagem Erro:<hr>";
-            var_dump($errorMessage);
         }
 
         $statusCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
-        echo "<br><Br>Status Code:<hr>";
-        var_dump($statusCode);
         curl_close($curl);
 
         if ($statusCode >= 400) {
@@ -214,25 +200,11 @@ class Request
             throw new ItauException($response, 100);
         }
 
-        // Status code 204 don't have content. That means $response will be always false
-        // Provides a custom content for $response to avoid error in the next if logic
-        if ($statusCode === 204) {
-            return [
-                'status_code' => 204
-            ];
-        }
-
         if (! $response) {
             throw new ItauException("Empty response, curl_error: $errorMessage", $statusCode);
         }
 
         $responseDecode = json_decode($response, true);
-        echo "<br><Br>Resposta:<hr>";
-var_dump($responseDecode);
-        if (is_array($responseDecode) && isset($responseDecode['error'])) {
-            throw new ItauException($responseDecode['error_description'], 100);
-        }
-
         return $responseDecode;
     }
 }
