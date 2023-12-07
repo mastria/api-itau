@@ -7,7 +7,7 @@ class PixResponse extends BaseResponse
     protected $txid;
     protected $pixCopiaECola;
 
-    public function Txid()
+    public function getTxid()
     {
         return $this->txid;
     }
