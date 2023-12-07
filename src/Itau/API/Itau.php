@@ -45,7 +45,7 @@ class Itau
         $this->setEnvironment(Environment::production());
         $this->setKeySession(session_status());
         #Crio o token
-        new Request($this);
+        #new Request($this);
     }
 
     /**
