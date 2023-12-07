@@ -199,23 +199,23 @@ class Itau
 
             $request = new Request($this);
             $response = $request->post($this, "{$this->getEnvironment()->getApiPixUrl()}/cob", $pix->toJSON());
-
+            $base = new BaseResponse();
+            return $base->mapperJson($response);
+            
         } catch (\Exception $e) {
-            echo "<br><br>Exception<hr>";
-            var_dump($e->getMessage());
-            #return $this->generateErrorResponse($e);
+            return $this->generateErrorResponse($e);
         }
     }
 
     private function generateErrorResponse($e)
     {
-        /*$error = new BaseResponse();
+        $error = new BaseResponse();
         $error->mapperJson(json_decode($e->getMessage(), true));
         
         if (empty($error->getStatus())) {
             $error->setStatus(Transaction::STATUS_ERROR);
         }
         
-        return $error;*/
+        return $error;
     }
 }

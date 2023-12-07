@@ -6,18 +6,19 @@ class Transaction implements \JsonSerializable
 {
     use TraitEntity;
 
-    private string $amount;
+    const STATUS_AUTHORIZED = "AUTHORIZED";
 
+    const STATUS_CONFIRMED = "CONFIRMED";
 
-    public function getAmount(): string
-    {
-        return $this->amount;
-    }
+    const STATUS_PENDING = "PENDING";
+    
+    const STATUS_WAITING = "WAITING";
 
-    public function setAmount(string $amount): self
-    {
-        $this->amount = (int) (string) ($amount * 100);
+    const STATUS_APPROVED = "APPROVED";
 
-        return $this;
-    }
+    const STATUS_CANCELED = "CANCELED";
+
+    const STATUS_DENIED = "DENIED";
+
+    const STATUS_ERROR = "ERROR";
 }
