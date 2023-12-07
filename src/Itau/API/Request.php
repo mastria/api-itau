@@ -42,6 +42,8 @@ class Request
         if ($this->verifyAuthSession($credentials)) {
             var_dump('usou a mesma credencial');
             return $credentials;
+        } else {
+            var_dump('Não usou a mesma credencial');
         }
             
         $endpoint = $credentials->getEnvironment()->getApiUrlAuth();

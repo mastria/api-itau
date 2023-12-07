@@ -195,12 +195,11 @@ class Itau
     {
         try{
             if ($this->debug) {
-               
+                print $pix->toJSON();
             }
-            print $pix->toJSON();
 
             $request = new Request($this);
-            $response = $request->post($this, "{$this->getEnvironment()->getApiPixUrl()}/cob", $pix->toJSON());
+            $response = $request->post($this, "{$this->getEnvironment()->getApiPixUrl()}/cobx", $pix->toJSON());
 
         } catch (\Exception $e) {
             echo "<br><br>Exception<hr>";
