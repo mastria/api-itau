@@ -145,8 +145,9 @@ class Itau
         return $this;
     }
 
-    public function pix(Pix $pix): BaseResponse
+    public function pix(Pix $pix): PixResponse
     {
+        $pixResponse = new PixResponse();
         try{
             if ($this->debug) {
                 print $pix->toJSON();
@@ -155,7 +156,7 @@ class Itau
             $request = new Request($this);
             $response = $request->post($this, "{$this->getEnvironment()->getApiPixUrl()}/cob", $pix->toJSON());
            
-            $pixResponse = new PixResponse();
+            
             // Add fields do not return in response
             $pixResponse->mapperJson($pix->toArray());
             // Add response fields
@@ -163,19 +164,18 @@ class Itau
             return $pixResponse;
 
         } catch (\Exception $e) {
-            return $this->generateErrorResponse($e);
+            return $this->generateErrorResponse($pixResponse, $e);
         }
     }
 
-    private function generateErrorResponse($e)
+    private function generateErrorResponse(BaseResponse $baseResponse, $e)
     {
-        $error = new BaseResponse();
-        $error->mapperJson(json_decode($e->getMessage(), true));
+        $baseResponse->mapperJson(json_decode($e->getMessage(), true));
         
-        if (empty($error->getStatus())) {
-            $error->setStatus(Transaction::STATUS_ERROR);
+        if (empty($baseResponse->getStatus())) {
+            $baseResponse->setStatus(Transaction::STATUS_ERROR);
         }
         
-        return $error;
+        return $baseResponse;
     }
 }

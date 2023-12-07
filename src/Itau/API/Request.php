@@ -104,12 +104,6 @@ class Request
         }
         $credentials->setAuthorizationToken($responseDecode["access_token"]);
 
-        // Save auth session
-        if ($credentials->getKeySession()) {
-            $responseDecode['generated'] = microtime(true);
-            $_SESSION[$credentials->getKeySession()] = $responseDecode;
-        }
-
         return $credentials;
     }
 
