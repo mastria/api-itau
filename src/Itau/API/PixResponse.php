@@ -4,8 +4,8 @@ namespace Itau\API;
 
 class PixResponse extends BaseResponse
 {
-    private $txid;
-    private $pixCopiaECola;
+    protected $txid;
+    protected $pixCopiaECola;
 
     public function Txid()
     {
