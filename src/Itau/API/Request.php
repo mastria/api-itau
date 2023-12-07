@@ -123,6 +123,7 @@ class Request
 
     private function verifyAuthSession(Itau $credentials)
     {
+        var_dump(['keySession' => $credentials->getKeySession(), 'session' => $_SESSION]);
         if ($credentials->getKeySession() && isset($_SESSION[$credentials->getKeySession()]) && $_SESSION[$credentials->getKeySession()]["access_token"]) {
 
             $auth = $_SESSION[$credentials->getKeySession()];
