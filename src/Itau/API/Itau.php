@@ -44,9 +44,8 @@ class Itau
         $this->setCertificateKey($certificateKey);
         $this->setEnvironment(Environment::production());
         $this->setKeySession(session_status());
-
-        $request = new Request($this);
-        $request->auth($this);
+        #Crio o token
+        new Request($this);
     }
 
     /**
