@@ -17,7 +17,6 @@ class Itau
     private string $certificateKey;
     private $environment;
     private $authorizationToken;
-    private $keySession;
 
     private $debug = false;
 
@@ -28,7 +27,6 @@ class Itau
         $this->setCertificate($certificate);
         $this->setCertificateKey($certificateKey);
         $this->setEnvironment(Environment::production());
-        $this->setKeySession(session_status());
     }
 
     /**
@@ -125,24 +123,6 @@ class Itau
         $this->authorizationToken = (string) $authorizationToken;
 
         return $this;
-    }
-
-    /**
-     *
-     * @return mixed
-     */
-    public function getKeySession()
-    {
-        return $this->keySession;
-    }
-
-    /**
-     *
-     * @param mixed $keySession
-     */
-    public function setKeySession($keySession)
-    {
-        $this->keySession = (string) $keySession;
     }
 
     /**
