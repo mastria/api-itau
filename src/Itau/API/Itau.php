@@ -198,7 +198,7 @@ class Itau
             }
 
             $request = new Request($this);
-            $response = $request->post($this, "{$this->getEnvironment()->getApiPixUrl()}/cobx", $pix->toJSON());
+            $response = $request->post($this, "{$this->getEnvironment()->getApiPixUrl()}/cob", $pix->toJSON());
 
         } catch (\Exception $e) {
             echo "<br><br>Exception<hr>";
