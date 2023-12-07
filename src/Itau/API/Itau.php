@@ -36,14 +36,14 @@ class Itau
      * @param Environment|null $environment
      * @return Itau
      */
-    public function __construct($client_id, $client_secret, $certificate, $certificateKey, $keySession = null)
+    public function __construct($client_id, $client_secret, $certificate, $certificateKey)
     {
         $this->setClientId($client_id);
         $this->setClientSecret($client_secret);
         $this->setCertificate($certificate);
         $this->setCertificateKey($certificateKey);
         $this->setEnvironment(Environment::production());
-        $this->setKeySession($keySession);
+        $this->setKeySession(session_status());
 
         $request = new Request($this);
         $request->auth($this);
