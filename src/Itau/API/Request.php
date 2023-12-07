@@ -120,9 +120,9 @@ class Request
 
     private function verifyAuthSession(Itau $credentials)
     {
-        if ($credentials->getKeySession() && isset($_SESSION[$credentials->getKeySession()]) && $_SESSION[$credentials->getKeySession()]["access_token"]) {
+        if ($credentials->getKeySession() && isset($_SESSION['itau_'.$credentials->getKeySession()]) && $_SESSION['itau_'.$credentials->getKeySession()]["access_token"]) {
 
-            $auth = $_SESSION[$credentials->getKeySession()];
+            $auth = $_SESSION['itau_'.$credentials->getKeySession()];
             $now = microtime(true);
             $init = $auth["generated"];
 

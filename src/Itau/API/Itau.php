@@ -11,32 +11,18 @@ use Itau\API\Exception\ItauException;
 class Itau
 {
 
-    private $client_id;
-
-    private $client_secret;
-
-    private $certificate;
-    private $certificateKey;
-
+    private string $client_id;
+    private string $client_secret;
+    private string $certificate;
+    private string $certificateKey;
     private $environment;
-
     private $authorizationToken;
-
     private $keySession;
+    private $response;
 
-    // private $
-
-    // TODO add monolog
     private $debug = false;
 
-    /**
-     *
-     * @param string $client_id
-     * @param string $client_secret
-     * @param Environment|null $environment
-     * @return Itau
-     */
-    public function __construct($client_id, $client_secret, $certificate, $certificateKey)
+    public function __construct(string $client_id, string $client_secret, string $certificate, string $certificateKey)
     {
         $this->setClientId($client_id);
         $this->setClientSecret($client_secret);
@@ -44,8 +30,6 @@ class Itau
         $this->setCertificateKey($certificateKey);
         $this->setEnvironment(Environment::production());
         $this->setKeySession(session_status());
-        #Crio o token
-        #new Request($this);
     }
 
     /**
@@ -112,20 +96,12 @@ class Itau
         return $this;
     }
 
-    /**
-     *
-     * @return Environment
-     */
-    public function getEnvironment()
+    public function getEnvironment(): Environment
     {
         return $this->environment;
     }
 
-    /**
-     *
-     * @param Environment $environment
-     */
-    public function setEnvironment(Environment $environment)
+    public function setEnvironment(Environment $environment): self
     {
         $this->environment = $environment;
 
@@ -198,9 +174,9 @@ class Itau
             }
 
             $request = new Request($this);
-            $response = $request->post($this, "{$this->getEnvironment()->getApiPixUrl()}/cob", $pix->toJSON());
-            $base = new BaseResponse();
-            return $response;
+            $this->response = $request->post($this, "{$this->getEnvironment()->getApiPixUrl()}/cob", $pix->toJSON());
+
+            return $this;
 
         } catch (\Exception $e) {
             return $this->generateErrorResponse($e);
