@@ -16,8 +16,6 @@ class Request
     public const CURL_TYPE_PUT = "PUT";
     public const CURL_TYPE_GET = "GET";
     public const CURL_TYPE_DELETE = "DELETE";
-    private $baseUrl = '';
-    private $authUrl = '';
 
     /**
      * Request constructor.
@@ -27,7 +25,6 @@ class Request
      */
     public function __construct(Itau $credentials)
     {
-        $this->baseUrl = $credentials->getEnvironment()->getApiUrl();
 
         if (! $credentials->getAuthorizationToken()) {
             $this->auth($credentials);
@@ -43,6 +40,7 @@ class Request
     public function auth(Itau $credentials)
     {
         if ($this->verifyAuthSession($credentials)) {
+            var_dump('usou a mesma credencial');
             return $credentials;
         }
             
@@ -139,14 +137,14 @@ class Request
         return false;
     }
 
-    public function post(Itau $credentials, $url_path, $params)
+    public function post(Itau $credentials, $fullUrl, $params)
     {
-        return $this->send($credentials, $url_path, self::CURL_TYPE_POST, $params);
+        return $this->send($credentials, $fullUrl, self::CURL_TYPE_POST, $params);
     }
 
-    private function send(Itau $credentials, $url_path, $method, $jsonBody = null)
+    private function send(Itau $credentials, $fullUrl, $method, $jsonBody = null)
     {
-        $curl = curl_init($this->getFullUrl($url_path));
+        $curl = curl_init($fullUrl);
 
         $defaultCurlOptions = array(
             CURLOPT_CONNECTTIMEOUT => 60,
@@ -233,14 +231,5 @@ var_dump($responseDecode);
         }
 
         return $responseDecode;
-    }
-
-    private function getFullUrl($url_path)
-    {
-        if (stripos($url_path, $this->baseUrl, 0) === 0) {
-            return $url_path;
-        }
-
-        return $this->baseUrl . $url_path;
     }
 }

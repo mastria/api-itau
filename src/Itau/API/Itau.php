@@ -200,7 +200,7 @@ class Itau
             print $pix->toJSON();
 
             $request = new Request($this);
-            $response = $request->post($this, "/cobrancas_imediata_pix", $pix->toJSON());
+            $response = $request->post($this, "{$this->getEnvironment()->getApiPixUrl()}/cob", $pix->toJSON());
 
         } catch (\Exception $e) {
             echo "<br><br>Exception<hr>";

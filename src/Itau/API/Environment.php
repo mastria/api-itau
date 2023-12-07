@@ -9,7 +9,8 @@ namespace Itau\API;
 class Environment
 {
 
-    private $api;
+    private $apiPix;
+    private $apiBolecode;
     private $apiAuth;
 
     /**
@@ -17,10 +18,11 @@ class Environment
      * @param string $api
      *
      */
-    private function __construct($api, $apiAuth)
+    private function __construct($apiAuth, $apiPix, $apiBolecode)
     {
-        $this->api = $api;
         $this->apiAuth = $apiAuth;
+        $this->apiPix = $apiPix;
+        $this->apiBolecode = $apiBolecode;
     }
 
     /**
@@ -30,19 +32,20 @@ class Environment
     public static function production()
     {
         return new Environment(
+            'https://sts.itau.com.br/api/oauth/token/api/oauth/token',
+            'https://secure.api.itau/pix_recebimentos/v2',
             'https://secure.api.itau/pix_recebimentos_conciliacoes/v2',
-            'https://sts.itau.com.br/api/oauth/token/api/oauth/token'
         );
     }
 
-    /**
-     * Gets the environment's Api URL
-     *
-     * @return string the Api URL
-     */
-    public function getApiUrl()
+    public function getApiPixUrl(): string
     {
-        return $this->api;
+        return $this->apiPix;
+    }
+
+    public function getApiBoleCodeUrl(): string
+    {
+        return $this->apiBolecode;
     }
 
     public function getApiUrlAuth(): string
