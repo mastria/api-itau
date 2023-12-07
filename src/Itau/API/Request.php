@@ -25,7 +25,6 @@ class Request
      */
     public function __construct(Itau $credentials)
     {
-
         if (! $credentials->getAuthorizationToken()) {
             $this->auth($credentials);
         }
@@ -38,11 +37,7 @@ class Request
      * @throws Exception
      */
     public function auth(Itau $credentials)
-    {
-        if ($this->verifyAuthSession($credentials)) {
-            return $credentials;
-        }
-            
+    {       
         $endpoint = $credentials->getEnvironment()->getApiUrlAuth();
         $headers = [
             'Content-Type: application/x-www-form-urlencoded',
@@ -116,24 +111,6 @@ class Request
         }
 
         return $credentials;
-    }
-
-    private function verifyAuthSession(Itau $credentials)
-    {
-        if ($credentials->getKeySession() && isset($_SESSION['itau_'.$credentials->getKeySession()]) && $_SESSION['itau_'.$credentials->getKeySession()]["access_token"]) {
-
-            $auth = $_SESSION['itau_'.$credentials->getKeySession()];
-            $now = microtime(true);
-            $init = $auth["generated"];
-
-            if (($now - $init) < $auth["expires_in"]) {
-                $credentials->setAuthorizationToken($auth["access_token"]);
-
-                return true;
-            }
-        }
-
-        return false;
     }
 
     public function post(Itau $credentials, $fullUrl, $params)

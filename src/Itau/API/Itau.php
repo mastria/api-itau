@@ -18,7 +18,6 @@ class Itau
     private $environment;
     private $authorizationToken;
     private $keySession;
-    private $response;
 
     private $debug = false;
 
@@ -166,7 +165,7 @@ class Itau
         return $this;
     }
 
-    public function pix(Pix $pix): PixResponse
+    public function pix(Pix $pix): BaseResponse
     {
         try{
             if ($this->debug) {
@@ -198,16 +197,5 @@ class Itau
         }
         
         return $error;
-    }
-
-    public function getResponse()
-    {
-        return $this->response;
-    }
-
-    public function getBaseResponse()
-    {
-        $base = new BaseResponse();
-        return $base->mapperJson($this->response);
     }
 }
