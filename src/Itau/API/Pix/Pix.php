@@ -18,20 +18,10 @@ class Pix implements \JsonSerializable
         return $this;
     }
 
-    public function getChave(): string
-    {
-        return $this->chave;
-    }
-
     public function setTxid($txid): self
     {
         $this->txid = $txid;
         return $this;
-    }
-
-    public function getTxid(): string
-    {
-        return $this->txid;
     }
 
     public function valor(): Valor
@@ -41,11 +31,6 @@ class Pix implements \JsonSerializable
         $this->setValor($valor);
 
         return $valor;
-    }
-
-    public function getValor(): Valor
-    {
-        return $this->valor;
     }
 
     public function setValor(Valor $valor): self

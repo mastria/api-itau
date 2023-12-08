@@ -2,6 +2,8 @@
 
 namespace Itau\API\BoleCode;
 
+use Itau\API\TraitEntity;
+
 class Beneficiario implements \JsonSerializable
 {
     use TraitEntity;

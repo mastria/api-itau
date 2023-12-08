@@ -15,9 +15,4 @@ class Valor implements \JsonSerializable
         $this->original = $original;
         return $this;
     }
-
-    public function getOriginal(): string
-    {
-        return $this->original;
-    }
 }
