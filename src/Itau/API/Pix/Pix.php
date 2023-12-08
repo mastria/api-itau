@@ -1,5 +1,5 @@
 <?php
-namespace Itau\API;
+namespace Itau\API\Pix;
 
 class Pix implements \JsonSerializable
 {

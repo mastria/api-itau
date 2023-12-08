@@ -6,6 +6,15 @@ class BaseResponse implements \JsonSerializable
 {
     use TraitEntity;
 
+    const STATUS_AUTHORIZED = "AUTHORIZED";
+    const STATUS_CONFIRMED = "CONFIRMED";
+    const STATUS_PENDING = "PENDING";
+    const STATUS_WAITING = "WAITING";
+    const STATUS_APPROVED = "APPROVED";
+    const STATUS_CANCELED = "CANCELED";
+    const STATUS_DENIED = "DENIED";
+    const STATUS_ERROR = "ERROR";
+
     private $responseJSON;
     private $status_code;
     private $status;
@@ -60,17 +69,17 @@ class BaseResponse implements \JsonSerializable
     public function getStatus()
     {
         if ($this->status_code == 201) {
-            $this->status = Transaction::STATUS_AUTHORIZED;
+            $this->status = self::STATUS_AUTHORIZED;
         } elseif ($this->status_code == 202) {
-            $this->status = Transaction::STATUS_AUTHORIZED;
+            $this->status = self::STATUS_AUTHORIZED;
         } elseif ($this->status_code == 402) {
-            $this->status = Transaction::STATUS_DENIED;
+            $this->status = self::STATUS_DENIED;
         } elseif ($this->status_code == 400) {
-            $this->status = Transaction::STATUS_ERROR;
+            $this->status = self::STATUS_ERROR;
         } elseif ($this->status_code == 402) {
-            $this->status = Transaction::STATUS_ERROR;
+            $this->status = self::STATUS_ERROR;
         } elseif ($this->status_code == 500) {
-            $this->status = Transaction::STATUS_ERROR;
+            $this->status = self::STATUS_ERROR;
         }
     }
 }

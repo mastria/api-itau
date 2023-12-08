@@ -1,7 +1,8 @@
 <?php
 namespace Itau\API;
 
-use Itau\API\Exception\ItauException;
+use Itau\API\Pix\Pix;
+use Itau\API\Pix\PixResponse;
 
 /**
  * Class Itau
@@ -173,7 +174,7 @@ class Itau
         $baseResponse->mapperJson(json_decode($e->getMessage(), true));
         
         if (empty($baseResponse->getStatus())) {
-            $baseResponse->setStatus(Transaction::STATUS_ERROR);
+            $baseResponse->setStatus(BaseResponse::STATUS_ERROR);
         }
         
         return $baseResponse;

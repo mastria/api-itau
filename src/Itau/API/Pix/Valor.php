@@ -1,6 +1,8 @@
 <?php
 
-namespace Itau\API;
+namespace Itau\API\Pix;
+
+use Itau\API\TraitEntity;
 
 class Valor implements \JsonSerializable
 {
