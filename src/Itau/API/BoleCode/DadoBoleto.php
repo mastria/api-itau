@@ -18,7 +18,7 @@ class DadoBoleto implements \JsonSerializable
     private string $data_emissao;
     private string $texto_seu_numero;
     private Pagador $pagador;
-    private DadosIndividuaisBoleto $dados_individuais_boleto;
+    private array $dados_individuais_boleto;
     private Juros $juros;
     private Multa $multa;
 
@@ -62,7 +62,7 @@ class DadoBoleto implements \JsonSerializable
 
     private function setDadosIndividuaisBoleto(DadosIndividuaisBoleto $dados): self
     {
-        $this->dados_individuais_boleto = $dados;
+        array_push($this->dados_individuais_boleto, $dados);
         return $this;
     }
 
