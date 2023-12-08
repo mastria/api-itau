@@ -1,6 +1,8 @@
 <?php
 namespace Itau\API\Pix;
 
+use Itau\API\TraitEntity;
+
 class Pix implements \JsonSerializable
 {
     use TraitEntity;
