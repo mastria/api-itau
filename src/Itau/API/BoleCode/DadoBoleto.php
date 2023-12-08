@@ -45,9 +45,54 @@ class DadoBoleto implements \JsonSerializable
         return $pagador;
     }
 
-    public function setPagador(Pagador $pagador): self
+    private function setPagador(Pagador $pagador): self
     {
         $this->pagador = $pagador;
+        return $this;
+    }
+
+    public function dadosIndividuais(): DadosIndividuaisBoleto
+    {
+        $dados = new DadosIndividuaisBoleto();
+
+        $this->setDadosIndividuaisBoleto($dados);
+
+        return $dados;
+    }
+
+    private function setDadosIndividuaisBoleto(DadosIndividuaisBoleto $dados): self
+    {
+        $this->dados_individuais_boleto = $dados;
+        return $this;
+    }
+
+    public function juros(): Juros
+    {
+        $juros = new Juros();
+
+        $this->setJuros($juros);
+
+        return $juros;
+    }
+
+    private function setJuros(Juros $juros): self
+    {
+        $this->juros = $juros;
+        return $this;
+    }
+
+    public function multa(): Multa
+    {
+        $multa = new Multa();
+
+        $this->setMulta($multa);
+
+        return $multa;
+    }
+
+    private function setMulta(Multa $multa): self
+    {
+        $this->multa = $multa;
         return $this;
     }
 }

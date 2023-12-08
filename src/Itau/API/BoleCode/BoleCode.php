@@ -50,11 +50,6 @@ class BoleCode implements \JsonSerializable
         return $dado;
     }
 
-    public function getDadoBoleto(): DadoBoleto
-    {
-        return $this->dado_boleto;
-    }
-
     public function setDadoBoleto(DadoBoleto $dado): self
     {
         $this->dado_boleto = $dado;
