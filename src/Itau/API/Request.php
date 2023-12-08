@@ -170,7 +170,7 @@ class Request
         }
 
         $responseDecode = json_decode($response, true);
-        $responseDecode .= ['status_code' => 200];
+        array_push($responseDecode, ['status_code' => 200]);
         return $responseDecode;
     }
 }
