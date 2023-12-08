@@ -18,7 +18,7 @@ class DadoBoleto implements \JsonSerializable
     private string $data_emissao;
     private string $texto_seu_numero;
     private Pagador $pagador;
-    private array $dados_individuais_boleto;
+    private ?array $dados_individuais_boleto = [];
     private Juros $juros;
     private Multa $multa;
 
