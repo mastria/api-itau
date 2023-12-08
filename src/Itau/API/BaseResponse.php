@@ -68,7 +68,9 @@ class BaseResponse implements \JsonSerializable
 
     public function getStatus()
     {
-        if ($this->status_code == 201) {
+        if ($this->status_code == 200) {
+            $this->status = self::STATUS_CONFIRMED;
+        } elseif ($this->status_code == 201) {
             $this->status = self::STATUS_AUTHORIZED;
         } elseif ($this->status_code == 202) {
             $this->status = self::STATUS_AUTHORIZED;
