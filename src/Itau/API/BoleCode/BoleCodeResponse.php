@@ -6,7 +6,7 @@ use Itau\API\BaseResponse;
 
 class BoleCodeResponse extends BaseResponse
 {
-    protected $env;
+    protected $emv;
     /*protected $txid;
     protected $pixCopiaECola;
 
@@ -17,6 +17,6 @@ class BoleCodeResponse extends BaseResponse
 
     public function getPixCopiaECola()
     {
-        return $this->env;
+        return $this->emv;
     }
 }
