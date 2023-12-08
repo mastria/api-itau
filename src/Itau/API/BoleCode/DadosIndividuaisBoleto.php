@@ -19,7 +19,7 @@ class DadosIndividuaisBoleto implements JsonSerializable
     {
         $this->numero_nosso_numero = str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
         $this->data_vencimento = $dataVencimento;
-        $this->valor_titulo = $valor;
+        $this->valor_titulo = ($valor*100);
         if(!empty($limitePagamento)){
             $this->data_limite_pagamento = $limitePagamento;
         }
