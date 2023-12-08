@@ -1,6 +1,8 @@
 <?php
 
-namespace Itau\API;
+namespace Itau\API\Pix;
+
+use Itau\API\BaseResponse;
 
 class PixResponse extends BaseResponse
 {
