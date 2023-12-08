@@ -30,12 +30,6 @@ class Request
         }
     }
 
-    /**
-     *
-     * @param Itau $credentials
-     * @return Itau
-     * @throws Exception
-     */
     public function auth(Itau $credentials)
     {       
         $endpoint = $credentials->getEnvironment()->getApiUrlAuth();
