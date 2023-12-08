@@ -12,7 +12,7 @@ class Beneficiario implements \JsonSerializable
 
     public function setIdBeneficiario($agencia, $contaComDigito): self
     {
-        $this->id_beneficiario = $agencia.str_pad($contaComDigito, 8, '0', STR_PAD_LEFT);
+        $this->id_beneficiario = str_pad($agencia, 4, '0', STR_PAD_LEFT).str_pad($contaComDigito, 8, '0', STR_PAD_LEFT);
         return $this;
     }
 

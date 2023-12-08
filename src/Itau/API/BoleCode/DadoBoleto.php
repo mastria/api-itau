@@ -28,21 +28,11 @@ class DadoBoleto implements \JsonSerializable
         $this->data_emissao = date("Y-m-d");
     }
 
-    public function setValor(string $valor): self
+    public function setDados(string $valor, string $codigoEspecia,string $numero): self
     {
         $this->valor_total_titulo = round($valor*100);
-        return $this;
-    }
-
-    public function setCodigoEspecie(string $codigo): self
-    {
-        $this->codigo_especie = $codigo;
-        return $this;
-    }
-
-    public function setNumeroDocumento(string $numero): self
-    {
-        $this->codigo_especie = $numero;
+        $this->codigo_especie = $codigoEspecia;
+        $this->texto_seu_numero = $numero;
         return $this;
     }
 

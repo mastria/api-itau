@@ -21,11 +21,6 @@ class BoleCode implements \JsonSerializable
         return $this;
     }
 
-    public function getEtapaProcessoBoleto(): string
-    {
-        return $this->etapa_processo_boleto;
-    }
-
     public function beneficiario(): Beneficiario
     {
         $beneficiario = new Beneficiario();
@@ -46,7 +41,7 @@ class BoleCode implements \JsonSerializable
         return $this;
     }
 
-    public function dado_boleto(): DadoBoleto
+    public function dadoBoleto(): DadoBoleto
     {
         $dado = new DadoBoleto();
 
