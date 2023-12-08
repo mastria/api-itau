@@ -13,6 +13,7 @@ class BoleCode implements \JsonSerializable
     private string $etapa_processo_boleto;
     private Beneficiario $beneficiario;
     private DadoBoleto $dado_boleto;
+    private DadosQrcode $dados_qrcode;
 
 
     public function setEtapaProcessoBoleto($etapa): self
@@ -50,9 +51,24 @@ class BoleCode implements \JsonSerializable
         return $dado;
     }
 
-    public function setDadoBoleto(DadoBoleto $dado): self
+    private function setDadoBoleto(DadoBoleto $dado): self
     {
         $this->dado_boleto = $dado;
+        return $this;
+    }
+
+    public function dadosQrCode(): DadosQrCode
+    {
+        $dado = new DadosQrCode();
+
+        $this->setDadosQrCode($dado);
+
+        return $dado;
+    }
+
+    private function setDadosQrCode(DadosQrCode $dado): self
+    {
+        $this->dados_qrcode = $dado;
         return $this;
     }
 }
