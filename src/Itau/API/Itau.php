@@ -164,6 +164,7 @@ class Itau
             $pixResponse->mapperJson($pix->toArray());
             // Add response fields
             $pixResponse->mapperJson($response);
+            $pixResponse->setStatus(BaseResponse::STATUS_CONFIRMED);
             return $pixResponse;
 
         } catch (\Exception $e) {
@@ -186,6 +187,7 @@ class Itau
             $boleCodeResponse->mapperJson($boleCode->toArray());
             // Add response fields
             $boleCodeResponse->mapperJson($response);
+            $boleCodeResponse->setStatus(BaseResponse::STATUS_CONFIRMED);
             return $boleCodeResponse;
 
         } catch (\Exception $e) {
