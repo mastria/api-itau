@@ -12,7 +12,7 @@ class Valor implements \JsonSerializable
 
     public function setOriginal(string $original): self
     {
-        $this->original = (int) (string) ($original * 100);
+        $this->original = $original;
         return $this;
     }
 
