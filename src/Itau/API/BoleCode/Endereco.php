@@ -21,12 +21,12 @@ class Endereco implements JsonSerializable
         string $rua, string $numero, string $complemento, string $bairro, string $cidade, string $uf, string $cep
     ): self
     {
-        $this->nome_logradouro = $rua;
-        $this->nome_bairro = $bairro;
-        $this->nome_cidade = $cidade;
-        $this->sigla_UF = $uf;
+        $this->nome_logradouro = mb_substr($rua, 0, 45);
+        $this->nome_bairro = mb_substr($bairro, 0, 15);
+        $this->nome_cidade = mb_substr($cidade, 0, 20);
+        $this->sigla_UF = mb_substr($uf, 0, 2);
         $this->numero_CEP = preg_replace("/[^0-9]/", "", $cep);
-        $this->complemento = $complemento;
+        $this->complemento = mb_substr($complemento, 0, 10);
         $this->numero = $numero;
 
         return $this;

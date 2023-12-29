@@ -14,7 +14,7 @@ class Pessoa implements JsonSerializable
 
     public function setNomePessoa($nome): self
     {
-        $this->nome_pessoa = $nome;
+        $this->nome_pessoa = mb_substr($nome, 0, 50);
         return $this;
     }
 
