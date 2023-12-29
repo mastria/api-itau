@@ -106,7 +106,7 @@ class Request
         return $this->send($credentials, $fullUrl, self::CURL_TYPE_POST, $params);
     }
 
-    public function patch(Itau $credentials, $fullUrl, $params)
+    public function patch(Itau $credentials, $fullUrl, $params = null)
     {
         return $this->send($credentials, $fullUrl, 'PATCH', $params);
     }

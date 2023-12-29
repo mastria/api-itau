@@ -12,17 +12,19 @@ class Environment
     private $apiPix;
     private $apiBolecode;
     private $apiAuth;
+    private $apiBoleto;
 
     /**
      *
      * @param string $api
      *
      */
-    private function __construct($apiAuth, $apiPix, $apiBolecode)
+    private function __construct($apiAuth, $apiPix, $apiBolecode, $apiBoleto)
     {
         $this->apiAuth = $apiAuth;
         $this->apiPix = $apiPix;
         $this->apiBolecode = $apiBolecode;
+        $this->apiBoleto = $apiBoleto;
     }
 
     /**
@@ -35,6 +37,7 @@ class Environment
             'https://sts.itau.com.br/api/oauth/token/api/oauth/token',
             'https://secure.api.itau/pix_recebimentos/v2',
             'https://secure.api.itau/pix_recebimentos_conciliacoes/v2',
+            'https://api.itau.com.br/cash_management/v2'
         );
     }
 
@@ -46,6 +49,11 @@ class Environment
     public function getApiBoleCodeUrl(): string
     {
         return $this->apiBolecode;
+    }
+
+    public function getApiBoletoUrl(): string
+    {
+        return $this->apiBoleto;
     }
 
     public function getApiUrlAuth(): string
