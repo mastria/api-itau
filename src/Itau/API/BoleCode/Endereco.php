@@ -25,7 +25,7 @@ class Endereco implements JsonSerializable
         $this->nome_bairro = $bairro;
         $this->nome_cidade = $cidade;
         $this->sigla_UF = $uf;
-        $this->numero_CEP = $cep;
+        $this->numero_CEP = preg_replace("/[^0-9]/", "", $cep);
         $this->complemento = $complemento;
         $this->numero = $numero;
 

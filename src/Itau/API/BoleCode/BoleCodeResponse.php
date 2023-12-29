@@ -7,13 +7,12 @@ use Itau\API\BaseResponse;
 class BoleCodeResponse extends BaseResponse
 {
     protected $emv;
-    /*protected $txid;
-    protected $pixCopiaECola;
+    protected $txid;
 
     public function getTxid()
     {
         return $this->txid;
-    }*/
+    }
 
     public function getPixCopiaECola()
     {
