@@ -203,7 +203,7 @@ class Itau
         echo '<hr>';
         var_dump($this->getEnvironment()->getApiBoletoUrl());
         echo '<hr>';
-        $response = $request->patch($this, "{$this->getEnvironment()->getApiBoletoUrl()}/boletos/{}/baixa");
+        $response = $request->patch($this, "{$this->getEnvironment()->getApiBoletoUrl()}/boletos/{$path}/baixa");
         var_dump($response);
     }
 
