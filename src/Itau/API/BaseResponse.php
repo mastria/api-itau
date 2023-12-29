@@ -18,6 +18,8 @@ class BaseResponse implements \JsonSerializable
     private $responseJSON;
     private $status_code;
     private $status;
+    private $mensagem;
+    private $codigo;
 
     public function jsonSerialize()
     {
@@ -56,7 +58,7 @@ class BaseResponse implements \JsonSerializable
 
     public function getStatusCode()
     {
-        return $this->status_code;
+        return empty($this->status_code) ? $this->codigo : $this->status_code;
     }
 
     public function setStatus($status)
@@ -74,8 +76,6 @@ class BaseResponse implements \JsonSerializable
             $this->status = self::STATUS_AUTHORIZED;
         } elseif ($this->status_code == 202) {
             $this->status = self::STATUS_AUTHORIZED;
-        } elseif ($this->status_code == 402) {
-            $this->status = self::STATUS_DENIED;
         } elseif ($this->status_code == 400) {
             $this->status = self::STATUS_ERROR;
         } elseif ($this->status_code == 402) {
@@ -83,5 +83,10 @@ class BaseResponse implements \JsonSerializable
         } elseif ($this->status_code == 500) {
             $this->status = self::STATUS_ERROR;
         }
+    }
+
+    public function getMensagem(): ?string
+    {
+        return $this->mensagem;
     }
 }
