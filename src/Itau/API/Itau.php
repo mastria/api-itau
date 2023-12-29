@@ -195,6 +195,16 @@ class Itau
         }
     }
 
+    public function baixarBoleto($agencia, $contaComDigito, $carteira, $nossoNumero)
+    {
+        $path = str_pad($agencia, 4, '0', STR_PAD_LEFT).str_pad($contaComDigito, 8, '0', STR_PAD_LEFT).str_pad($carteira, 3, '0', STR_PAD_LEFT).str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
+        echo $path;
+        $request = new Request($this);
+        var_dump($this->getEnvironment()->getApiBoleCodeUrl());
+        #$response = $request->post($this, "{$this->getEnvironment()->getApiBoleCodeUrl()}/boletos_pix", $boleCode->toJSON());
+
+    }
+
     private function generateErrorResponse(BaseResponse $baseResponse, $e)
     {
         $baseResponse->mapperJson(json_decode($e->getMessage(), true));

@@ -106,6 +106,11 @@ class Request
         return $this->send($credentials, $fullUrl, self::CURL_TYPE_POST, $params);
     }
 
+    public function patch(Itau $credentials, $fullUrl, $params)
+    {
+        return $this->send($credentials, $fullUrl, 'PATCH', $params);
+    }
+
     private function send(Itau $credentials, $fullUrl, $method, $jsonBody = null)
     {
         $curl = curl_init($fullUrl);
@@ -130,7 +135,8 @@ class Request
         // Add custom method
         if (in_array($method, [
             self::CURL_TYPE_DELETE,
-            self::CURL_TYPE_PUT
+            self::CURL_TYPE_PUT,
+            'PATCH'
         ])) {
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
         }
