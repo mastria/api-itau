@@ -5,6 +5,7 @@ use Itau\API\BoleCode\BoleCode;
 use Itau\API\BoleCode\BoleCodeResponse;
 use Itau\API\Pix\Pix;
 use Itau\API\Pix\PixResponse;
+use Itau\API\Vencimento\Vencimento;
 
 /**
  * Class Itau
@@ -193,6 +194,18 @@ class Itau
         } catch (\Exception $e) {
             return $this->generateErrorResponse($boleCodeResponse, $e);
         }
+    }
+
+    public function alterarVencimentoBoleto($agencia, $contaComDigito, $carteira, $nossoNumero, Vencimento $vencimento)
+    {
+        $path = str_pad($agencia, 4, '0', STR_PAD_LEFT).str_pad($contaComDigito, 8, '0', STR_PAD_LEFT).str_pad($carteira, 3, '0', STR_PAD_LEFT).str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
+        echo $path;
+        $request = new Request($this);
+        echo '<hr>';
+        var_dump($this->getEnvironment()->getApiBoletoUrl());
+        echo '<hr>';
+        $response = $request->patch($this, "{$this->getEnvironment()->getApiBoletoUrl()}/boletos/{$path}/data_vencimento", $vencimento->toJSON());
+        var_dump($response);
     }
 
     public function baixarBoleto($agencia, $contaComDigito, $carteira, $nossoNumero)
