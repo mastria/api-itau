@@ -3,6 +3,7 @@ namespace Itau\API;
 
 use Itau\API\BoleCode\BoleCode;
 use Itau\API\BoleCode\BoleCodeResponse;
+use Itau\API\Boleto\Boleto;
 use Itau\API\Pix\Pix;
 use Itau\API\Pix\PixResponse;
 use Itau\API\Vencimento\Vencimento;
@@ -194,6 +195,17 @@ class Itau
         } catch (\Exception $e) {
             return $this->generateErrorResponse($boleCodeResponse, $e);
         }
+    }
+
+    public function consultarBoleto($agencia, $contaComDigito, $nossoNumero)
+    {
+        $boleto = new Boleto($agencia, $contaComDigito, $nossoNumero);
+        $request = new Request($this);
+        echo '<hr>';
+        var_dump($this->getEnvironment()->getApiBoletoUrl());
+        echo '<hr>';
+        $response = $request->patch($this, "{$this->getEnvironment()->getApiBoletoUrl()}/boletos", $boleto->toJSON());
+        var_dump($response);
     }
 
     public function alterarVencimentoBoleto($agencia, $contaComDigito, $carteira, $nossoNumero, Vencimento $vencimento)

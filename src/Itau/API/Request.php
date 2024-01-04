@@ -99,6 +99,11 @@ class Request
         $credentials->setAuthorizationToken($responseDecode["access_token"]);
 
         return $credentials;
+    }    
+
+    public function get(Itau $credentials, $fullUrl, $params)
+    {
+        return $this->send($credentials, $fullUrl, self::CURL_TYPE_GET, $params);
     }
 
     public function post(Itau $credentials, $fullUrl, $params)
