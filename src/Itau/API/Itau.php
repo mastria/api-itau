@@ -199,37 +199,37 @@ class Itau
 
     public function consultarBoleto($agencia, $contaComDigito, $nossoNumero)
     {
-        $boleto = new Boleto($agencia, $contaComDigito, $nossoNumero);
+        /*$boleto = new Boleto($agencia, $contaComDigito, $nossoNumero);
         $request = new Request($this);
         echo '<hr>';
         var_dump($this->getEnvironment()->getApiBoletoUrl());
         echo '<hr>';
         $response = $request->patch($this, "{$this->getEnvironment()->getApiBoletoUrl()}/boletos", $boleto->toJSON());
-        var_dump($response);
+        var_dump($response);*/
     }
 
     public function alterarVencimentoBoleto($agencia, $contaComDigito, $carteira, $nossoNumero, Vencimento $vencimento)
     {
-        $path = str_pad($agencia, 4, '0', STR_PAD_LEFT).str_pad($contaComDigito, 8, '0', STR_PAD_LEFT).str_pad($carteira, 3, '0', STR_PAD_LEFT).str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
+        /*$path = str_pad($agencia, 4, '0', STR_PAD_LEFT).str_pad($contaComDigito, 8, '0', STR_PAD_LEFT).str_pad($carteira, 3, '0', STR_PAD_LEFT).str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
         echo $path;
         $request = new Request($this);
         echo '<hr>';
         var_dump($this->getEnvironment()->getApiBoletoUrl());
         echo '<hr>';
         $response = $request->patch($this, "{$this->getEnvironment()->getApiBoletoUrl()}/boletos/{$path}/data_vencimento", $vencimento->toJSON());
-        var_dump($response);
+        var_dump($response);*/
     }
 
     public function baixarBoleto($agencia, $contaComDigito, $carteira, $nossoNumero)
     {
-        $path = str_pad($agencia, 4, '0', STR_PAD_LEFT).str_pad($contaComDigito, 8, '0', STR_PAD_LEFT).str_pad($carteira, 3, '0', STR_PAD_LEFT).str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
+        /*$path = str_pad($agencia, 4, '0', STR_PAD_LEFT).str_pad($contaComDigito, 8, '0', STR_PAD_LEFT).str_pad($carteira, 3, '0', STR_PAD_LEFT).str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
         echo $path;
         $request = new Request($this);
         echo '<hr>';
         var_dump($this->getEnvironment()->getApiBoletoUrl());
         echo '<hr>';
         $response = $request->patch($this, "{$this->getEnvironment()->getApiBoletoUrl()}/boletos/{$path}/baixa");
-        var_dump($response);
+        var_dump($response);*/
     }
 
     private function generateErrorResponse(BaseResponse $baseResponse, $e)
