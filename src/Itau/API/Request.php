@@ -78,7 +78,7 @@ class Request
             // TODO see what it means code 100
             throw new ItauException($response, 100);
         }
-
+        var_dump($statusCode);
         // Status code 204 don't have content. That means $response will be always false
         // Provides a custom content for $response to avoid error in the next if logic
         if ($statusCode === 204) {
@@ -179,12 +179,8 @@ class Request
             throw new ItauException($response, 100);
         }
 
-        if (! $response) {
-            throw new ItauException("Empty response, curl_error: $errorMessage", $statusCode);
-        }
-
         $responseDecode = json_decode($response, true);
-        array_push($responseDecode, ['status_code' => 200]);
+        array_push($responseDecode, ['status_code' => $statusCode]);
         return $responseDecode;
     }
 }
