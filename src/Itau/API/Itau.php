@@ -230,6 +230,8 @@ class Itau
         $response = $request->patch($this, "{$this->getEnvironment()->getApiBoletoUrl()}/boletos/{$path}/baixa");
         // Add response fields
         $boletoResponse->mapperJson($response);
+
+        return $boletoResponse;
     }
 
     private function generateErrorResponse(BaseResponse $baseResponse, $e)
