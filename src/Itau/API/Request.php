@@ -184,7 +184,12 @@ class Request
         var_dump($statusCode);
         echo '<br>DECODE:<br>';
         var_dump($responseDecode);
-        array_push($responseDecode, ['status_code' => $statusCode]);
+        if(is_null($responseDecode)){
+            $responseDecode = ['status_code' => $statusCode];
+        } else {
+            array_push($responseDecode, ['status_code' => $statusCode]);
+        }
+        
         return $responseDecode;
     }
 }
