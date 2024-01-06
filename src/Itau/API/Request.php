@@ -180,6 +180,10 @@ class Request
         }
 
         $responseDecode = json_decode($response, true);
+        echo '<br>STATUS CODE:<br>';
+        var_dump($statusCode);
+        echo '<br>DECODE:<br>';
+        var_dump($responseDecode);
         array_push($responseDecode, ['status_code' => $statusCode]);
         return $responseDecode;
     }
