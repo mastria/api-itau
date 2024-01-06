@@ -180,10 +180,6 @@ class Request
         }
 
         $responseDecode = json_decode($response, true);
-        echo '<br>STATUS CODE:<br>';
-        var_dump($statusCode);
-        echo '<br>DECODE:<br>';
-        var_dump($responseDecode);
         if(is_null($responseDecode)){
             $responseDecode = ['status_code' => $statusCode];
         } else {
