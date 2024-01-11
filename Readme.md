@@ -20,7 +20,7 @@
 Uploader is available via Composer:
 
 ```bash
-"leandroferreirama/api-itau": "^1.0"
+"leandroferreirama/api-itau": "^2.0"
 ```
 
 or run
@@ -41,26 +41,86 @@ require __DIR__ . "/../vendor/autoload.php";
 use Itau\API\Itau;
 use Itau\API\Pix\Pix;
 
-$itau = new Itau(
-    "clientID",
-    "secretToken",
-    "caminhoCertificado",
-    "caminhoCertificadoKey"
-);
+try{
+    $itau = new Itau(
+        "clientID",
+        "secretToken",
+        "caminhoCertificado",
+        "caminhoCertificadoKey"
+    );
 
-//pix
-$pix = new Pix();
-$pix->setChave('chavePixCadastradaBanco');
-$pix->valor()->setOriginal('10.00');
-$response = $itau->pix($pix);
+    //pix
+    $pix = new Pix();
+    $pix->setChave('chavePixCadastradaBanco');
+    $pix->valor()->setOriginal('10.00');
+    $response = $itau->pix($pix);
 
-//capturando o payload do PIX (copia e cola)
-$response->getPixCopiaECola();
+    //capturando o payload do PIX (copia e cola)
+    $response->getPixCopiaECola();
+} catch(Exception $e){
+
+}
 ```
 
-## Support
+#### API bolecode (Boleto + PIX):
 
-###### Se você descobrir algum problema relacionado à segurança, envie um e-mail para suporte@integracaosistema.com.br em vez de usar o rastreador de problemas.
+```php
+<?php
+
+require __DIR__ . "/../vendor/autoload.php";
+
+use Itau\API\Itau;
+use Itau\API\BoleCode\BoleCode;
+
+try{
+    $itau = new Itau(
+        "clientID",
+        "secretToken",
+        "caminhoCertificado",
+        "caminhoCertificadoKey"
+    );
+
+    #Explicações dos campos após este exemplo
+    $boleCode = new BoleCode (
+        $modo, $agencia, $conta, $contaDV, $valor, $tipoBoleto, $numeroDocumento, $nome, $tipoPessoa,
+        $documento, $endereco, $numero, $complemento, $bairro, $cidade, $siglaEstado, $cep, $nossoNumero, $vencimento, $chavePix
+    );
+
+    $response = $itau->boleCode($boleCode);
+
+    #Caso tenha sucesso, conseguirá recuperar o TXID dessa maneira
+    $response->getTxid();
+
+    #PIXCOPIA E COLA - Em caso de sucesso
+    $response->getPixCopiaECola();
+
+} catch(Exception $e){
+
+}
+```
+##### Modo
+BoleCode::ETAPA_EFETIVO ou BoleCode::ETAPA_TESTE
+
+##### Tipo Boleto
+DadoBoleto::ESPECIE_DS = Boleto de Serviço
+DadoBoleto::ESPECIE_DM = Boleto de Venda
+
+##### Tipo Pessoa
+TipoPessoa::PESSOA_FISICA = Para CPF
+TipoPessoa::PESSOA_JURIDICA = Para CNPJ
+
+##### Sigla Estado
+Duas Sílabas apenas = Ex: SP
+
+##### Nosso Número
+Seu número.É de sua responsabilidade gerar esse número único para boleto.
+
+##### Vencimento
+Padrão: Y-m-d (não possui tratamento de conversão)
+
+## Suporte
+
+###### Se você descobrir algum problema relacionado à segurança ou tiver alguma dúvida, envie um e-mail para suporte@integracaosistema.com.br.
 
 ## Credits
 
