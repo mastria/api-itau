@@ -17,7 +17,8 @@ class BoleCode implements \JsonSerializable
 
     public function __construct(
         $modo, $agencia, $conta, $contaDV, $valor, $tipoBoleto, $numeroDocumento, $nome, $tipoPessoa,
-        $documento, $endereco, $numero, $complemento, $bairro, $cidade, $siglaEstado, $cep, $nossoNumero, $vencimento, $chavePix
+        $documento, $endereco, $numero, $complemento, $bairro, $cidade, $siglaEstado, $cep, $nossoNumero, 
+        $vencimento, $chavePix, $tipoMulta, $percentualMulta, $tipoJuros, $percentualJuros
     )
     {
         $this->setEtapaProcessoBoleto($modo)
@@ -35,6 +36,10 @@ class BoleCode implements \JsonSerializable
         $dadoBoleto->dadosIndividuais()->setDados(
             $nossoNumero, $vencimento, $valor
         );
+
+        $dadoBoleto->multa()->setMulta($tipoMulta, $percentualMulta);
+        $dadoBoleto->juros()->setJuros($tipoJuros, $percentualJuros);
+
         $this->dadosQrCode()->setChave($chavePix);
     }
     public function setEtapaProcessoBoleto($etapa): self
