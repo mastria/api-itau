@@ -1,7 +1,9 @@
+
 # API itaú
 
+
 [![Maintainer](http://img.shields.io/badge/maintainer-@leandroferreirama-blue.svg?style=flat-square)](https://twitter.com/leandroferreirama)
-[![Source Code](http://img.shields.io/badge/source-leandroferreirama/api-itau-blue.svg?style=flat-square)](https://github.com/leandroferreirama/api-itau)
+[![Source Code](http://img.shields.io/badge/source-leandroferreirama/api%E2%80%93itau-blue.svg?style=flat-square)](https://github.com/leandroferreirama/api-itau)
 [![PHP from Packagist](https://img.shields.io/packagist/php-v/leandroferreirama/api-itau.svg?style=flat-square)](https://packagist.org/packages/leandroferreirama/api-itau)
 [![Latest Version](https://img.shields.io/github/release/leandroferreirama/api-itau.svg?style=flat-square)](https://github.com/leandroferreirama/api-itau/releases)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
@@ -9,11 +11,15 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/leandroferreirama/api-itau.svg?style=flat-square)](https://scrutinizer-ci.com/g/leandroferreirama/api-itau)
 [![Total Downloads](https://img.shields.io/packagist/dt/leandroferreirama/api-itau.svg?style=flat-square)](https://packagist.org/packages/leandroferreirama/api-itau)
 
+
+
 ###### Esta api está habilitada a utilizar a API PIX do banco central, bolecode do Itaú, alteração e baixa utilizando a API de boleto do Itaú
+
 
 ### IMPORTANTE
 
-- Para utilizar todas as funções da API é necessário realizar duas habilitações junto ao itaú. Uma servirá para consunir a api pix e bolecode, a outra para consumir a alteração e baixa de boleto.
+- Para utilizar todas as funções da API é necessário realizar duas habilitações junto ao itaú. Uma servirá para consumir a api pix e bolecode, a outra para consumir a alteração de vencimento e baixa de boleto.
+
 
 ## Installation
 
@@ -28,6 +34,7 @@ or run
 ```bash
 composer require leandroferreirama/api-itau
 ```
+
 
 ## Documentation
 
@@ -98,6 +105,9 @@ try{
 
 }
 ```
+
+### Explicação dos campos
+
 ##### Modo
 BoleCode::ETAPA_EFETIVO ou BoleCode::ETAPA_TESTE
 
@@ -117,6 +127,7 @@ Seu número.É de sua responsabilidade gerar esse número único para boleto.
 
 ##### Vencimento
 Padrão: Y-m-d (não possui tratamento de conversão)
+
 
 ## Suporte
 
