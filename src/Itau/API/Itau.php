@@ -200,18 +200,14 @@ class Itau
 
     public function alterarVencimentoBoleto($agencia, $contaComDigito, $carteira, $nossoNumero, Vencimento $vencimento)
     {
+        $boletoResponse = new BoletoResponse();
+
         $path = str_pad($agencia, 4, '0', STR_PAD_LEFT).str_pad($contaComDigito, 8, '0', STR_PAD_LEFT).str_pad($carteira, 3, '0', STR_PAD_LEFT).str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
-        echo $path;
         $request = new Request($this);
-        echo '<hr>API URL: ';
-        var_dump($this->getEnvironment()->getApiBoletoUrl());
-        echo '<hr>Vencimendo: ';
-        var_dump($vencimento);
-        echo '<hr>JSON: ';
-        var_dump($vencimento->toJSON());
         $response = $request->patch($this, "{$this->getEnvironment()->getApiBoletoUrl()}/boletos/{$path}/data_vencimento", $vencimento->toJSON());
-        echo '<hr>RESPONSE:';
-        var_dump($response);/**/
+        $boletoResponse->mapperJson($response);
+
+        return $boletoResponse;
     }
 
     public function baixarBoleto($agencia, $contaComDigito, $carteira, $nossoNumero)
