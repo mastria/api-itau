@@ -160,7 +160,9 @@ class Request
         $errorMessage = '';
 
         try {
+            echo 'Vai executar';
             $response = curl_exec($curl);
+            echo 'Passou response';
         } catch (Exception $e) {
             throw new ItauException("Request Exception, error: {$e->getMessage()}", 100);
         }
