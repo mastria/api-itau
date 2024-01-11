@@ -90,7 +90,8 @@ try{
     #Explicações dos campos após este exemplo
     $boleCode = new BoleCode (
         $modo, $agencia, $conta, $contaDV, $valor, $tipoBoleto, $numeroDocumento, $nome, $tipoPessoa,
-        $documento, $endereco, $numero, $complemento, $bairro, $cidade, $siglaEstado, $cep, $nossoNumero, $vencimento, $chavePix, $tipoMulta, $percentualMulta, $tipoJuros, $percentualJuros
+        $documento, $endereco, $numero, $complemento, $bairro, $cidade, $siglaEstado, $cep, $nossoNumero,
+        $vencimento, $chavePix, $tipoMulta, $percentualMulta, $tipoJuros, $percentualJuros
     );
 
     $response = $itau->boleCode($boleCode);
