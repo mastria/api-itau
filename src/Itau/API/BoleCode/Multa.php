@@ -17,7 +17,7 @@ class Multa implements JsonSerializable
     public function setMulta($codigo, $percentual): self
     {
         $this->codigo_tipo_multa = $codigo;
-        $this->percentual_multa = $percentual*100;
+        $this->percentual_multa = $percentual*100000;
         return $this;
     }
 }
