@@ -90,7 +90,7 @@ try{
     #Explicações dos campos após este exemplo
     $boleCode = new BoleCode (
         $modo, $agencia, $conta, $contaDV, $valor, $tipoBoleto, $numeroDocumento, $nome, $tipoPessoa,
-        $documento, $endereco, $numero, $complemento, $bairro, $cidade, $siglaEstado, $cep, $nossoNumero, $vencimento, $chavePix
+        $documento, $endereco, $numero, $complemento, $bairro, $cidade, $siglaEstado, $cep, $nossoNumero, $vencimento, $chavePix, $tipoMulta, $percentualMulta, $tipoJuros, $percentualJuros
     );
 
     $response = $itau->boleCode($boleCode);
@@ -113,10 +113,12 @@ BoleCode::ETAPA_EFETIVO ou BoleCode::ETAPA_TESTE
 
 ##### Tipo Boleto
 DadoBoleto::ESPECIE_DS = Boleto de Serviço
+
 DadoBoleto::ESPECIE_DM = Boleto de Venda
 
 ##### Tipo Pessoa
 TipoPessoa::PESSOA_FISICA = Para CPF
+
 TipoPessoa::PESSOA_JURIDICA = Para CNPJ
 
 ##### Sigla Estado
@@ -128,6 +130,21 @@ Seu número.É de sua responsabilidade gerar esse número único para boleto.
 ##### Vencimento
 Padrão: Y-m-d (não possui tratamento de conversão)
 
+##### Tipo Multa
+Multa::SEM_MULTA = Sem multa
+
+Multa::PERCENTUAL = Percentual
+
+##### Valor Multa
+2 = 2%
+
+##### Tipo Juros
+Juros::SEM_JUROS = Sem juros
+
+Juros::PERCENTUAL_MENSAL = Percentual mensal
+
+##### Valor Juros
+1 = 1% am
 
 ## Suporte
 
