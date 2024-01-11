@@ -56,6 +56,9 @@ try{
         "caminhoCertificadoKey"
     );
 
+    #Descomente este trecho caso queira imprimir na tela o JSON da requisição
+    #$itau->setDebug(true);
+
     //pix
     $pix = new Pix();
     $pix->setChave('chavePixCadastradaBanco');
@@ -86,6 +89,9 @@ try{
         "caminhoCertificado",
         "caminhoCertificadoKey"
     );
+
+    #Descomente este trecho caso queira imprimir na tela o JSON da requisição
+    #$itau->setDebug(true);
 
     #Explicações dos campos após este exemplo
     $boleCode = new BoleCode (
@@ -146,6 +152,73 @@ Juros::PERCENTUAL_MENSAL = Percentual mensal
 
 ##### Valor Juros
 1 = 1% am
+
+#### API Alterar Vencimento:
+
+**ATENÇÃO: O clientId, SecretToken e certificados devem ser diferentes do utilizado na API do PIX e Bolecode**
+
+```php
+<?php
+
+require __DIR__ . "/../vendor/autoload.php";
+
+use Itau\API\Itau;
+
+try{
+    $itau = new Itau(
+        "clientID",
+        "secretToken",
+        "caminhoCertificado",
+        "caminhoCertificadoKey"
+    );
+
+    #Descomente este trecho caso queira imprimir na tela o JSON da requisição
+    #$itau->setDebug(true);
+
+    $response = $itau->baixarBoleto('agencia', 'contaComDVSemTraço', 'cateira(geralmente 109)', 'nossoNumeroSemDV');
+    
+    if($response->getStatusCode() == 204){
+        //Sucesso quando retornado o status code 204
+    }
+} catch(Exception $e){
+
+}
+```
+
+#### API Baixar Boleto:
+```php
+<?php
+
+require __DIR__ . "/../vendor/autoload.php";
+
+use Itau\API\Itau;
+use Itau\API\Vencimento\Vencimento;
+
+try{
+    $itau = new Itau(
+        "clientID",
+        "secretToken",
+        "caminhoCertificado",
+        "caminhoCertificadoKey"
+    );
+
+    #Descomente este trecho caso queira imprimir na tela o JSON da requisição
+    #$itau->setDebug(true);
+
+    $response = $itau->baixarBoleto(
+        'agencia', 'contaComDVSemTraço', 'cateira(geralmente 109)', 'nossoNumeroSemDV',
+        new Vencimento('novoVencimento (Y-m-d)')
+    );
+    
+    if($response->getStatusCode() == 204){
+        //Sucesso quando retornado o status code 204
+    }
+} catch(Exception $e){
+
+}
+```
+
+
 
 ## Suporte
 
