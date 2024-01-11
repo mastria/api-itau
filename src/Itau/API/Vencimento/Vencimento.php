@@ -9,6 +9,10 @@ class Vencimento implements \JsonSerializable
 
     private string $data_vencimento;
 
+    public function __construct($vencimento)
+    {
+        $this->data_vencimento = $vencimento;
+    }
 
     public function setDataVencimento($vencimento): self
     {
