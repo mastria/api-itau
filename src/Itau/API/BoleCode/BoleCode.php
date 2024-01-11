@@ -15,7 +15,28 @@ class BoleCode implements \JsonSerializable
     private DadoBoleto $dado_boleto;
     private DadosQrcode $dados_qrcode;
 
-
+    public function __construct(
+        $modo, $agencia, $conta, $contaDV, $valor, $tipoBoleto, $numeroDocumento, $nome, $tipoPessoa,
+        $documento, $endereco, $numero, $complemento, $bairro, $cidade, $siglaEstado, $cep, $nossoNumero, $vencimento, $chavePix
+    )
+    {
+        $this->setEtapaProcessoBoleto($modo)
+            ->beneficiario()->setIdBeneficiario($agencia, $conta.$contaDV);
+        $dadoBoleto = $this->dadoBoleto()
+            ->setDados($valor, $tipoBoleto, $numeroDocumento);
+        $pagador = $dadoBoleto->pagador();
+        $pessoa = $pagador->pessoa()->setNomePessoa($nome);
+        $tipoPessoa = $pessoa->tipoPessoa()
+            ->setPessoa($tipoPessoa, $documento);
+        $pagador->endereco()->setEndereco(
+            $endereco, $numero, $complemento, $bairro, $cidade, $siglaEstado, $cep
+        );
+            
+        $dadoBoleto->dadosIndividuais()->setDados(
+            $nossoNumero, $vencimento, $valor
+        );
+        $this->dadosQrCode()->setChave($chavePix);
+    }
     public function setEtapaProcessoBoleto($etapa): self
     {
         $this->etapa_processo_boleto = $etapa;
