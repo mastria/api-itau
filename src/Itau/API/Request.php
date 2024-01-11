@@ -162,7 +162,8 @@ class Request
         try {
             echo 'Vai executar';
             $response = curl_exec($curl);
-            echo 'Passou response';
+            echo 'Passou response<hr>';
+            var_dump($response);
         } catch (Exception $e) {
             throw new ItauException("Request Exception, error: {$e->getMessage()}", 100);
         }
