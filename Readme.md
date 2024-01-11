@@ -23,7 +23,7 @@
 
 ## Installation
 
-Uploader is available via Composer:
+Api Itau é disponibilizado através do composer:
 
 ```bash
 "leandroferreirama/api-itau": "^2.0"
