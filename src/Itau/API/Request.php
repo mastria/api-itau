@@ -112,6 +112,9 @@ class Request
 
     public function patch(Itau $credentials, $fullUrl, $params = null)
     {
+        echo '<hr>PARAMETROS CORPO:<br>';
+        var_dump($params);
+        echo '<hr>';
         return $this->send($credentials, $fullUrl, 'PATCH', $params);
     }
 
