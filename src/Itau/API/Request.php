@@ -112,9 +112,6 @@ class Request
 
     public function patch(Itau $credentials, $fullUrl, $params = null)
     {
-        echo '<hr>PARAMETROS CORPO:<br>';
-        var_dump($params);
-        echo '<hr>';
         return $this->send($credentials, $fullUrl, 'PATCH', $params);
     }
 
@@ -163,10 +160,7 @@ class Request
         $errorMessage = '';
 
         try {
-            echo 'Vai executar';
             $response = curl_exec($curl);
-            echo 'Passou response<hr>';
-            var_dump($response);
         } catch (Exception $e) {
             throw new ItauException("Request Exception, error: {$e->getMessage()}", 100);
         }
