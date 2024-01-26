@@ -136,6 +136,7 @@ class Request
 
         $defaultCurlOptions[CURLOPT_HTTPHEADER][] = 'Authorization: Bearer ' . $credentials->getAuthorizationToken();
         $defaultCurlOptions[CURLOPT_HTTPHEADER][] = 'x-itau-apikey: ' . $credentials->getClientId();
+        $defaultCurlOptions[CURLOPT_HTTPHEADER][] = 'x-itau-correlationID: 2';
 
         // Add custom method
         if (in_array($method, [
