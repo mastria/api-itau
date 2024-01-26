@@ -100,7 +100,7 @@ class Request
         return $credentials;
     }    
 
-    public function get(Itau $credentials, $fullUrl, $params)
+    public function get(Itau $credentials, $fullUrl, $params = null)
     {
         return $this->send($credentials, $fullUrl, self::CURL_TYPE_GET, $params);
     }

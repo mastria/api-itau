@@ -210,6 +210,20 @@ class Itau
         return $boletoResponse;
     }
 
+    public function consultarBoleto($agencia, $contaComDigito, $nossoNumero)
+    {
+        $boletoResponse = new BoletoResponse();
+
+        $id_beneficiario = str_pad($agencia, 4, '0', STR_PAD_LEFT).str_pad($contaComDigito, 8, '0', STR_PAD_LEFT);
+        $nosso_numero = str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
+        $request = new Request($this);
+        $response = $request->get($this, "{$this->getEnvironment()->getApiBoletoUrl()}/boletos?id_beneficiario={$id_beneficiario}&nosso_numero={$nosso_numero}");
+        // Add response fields
+        $boletoResponse->mapperJson($response);
+
+        return $boletoResponse;
+    }
+
     public function baixarBoleto($agencia, $contaComDigito, $carteira, $nossoNumero)
     {
         $boletoResponse = new BoletoResponse();
