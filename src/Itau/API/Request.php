@@ -95,7 +95,6 @@ class Request
         if (is_array($responseDecode) && isset($responseDecode['error'])) {
             throw new ItauException($responseDecode['error_description'], 100);
         }
-        var_dump(['token' => $responseDecode["access_token"]]);
         $credentials->setAuthorizationToken($responseDecode["access_token"]);
 
         return $credentials;
@@ -103,6 +102,7 @@ class Request
 
     public function get(Itau $credentials, $fullUrl, $params = null)
     {
+        var_dump(['fullUrl' => $fullUrl]);
         return $this->send($credentials, $fullUrl, self::CURL_TYPE_GET, $params);
     }
 
@@ -141,6 +141,7 @@ class Request
         if (in_array($method, [
             self::CURL_TYPE_DELETE,
             self::CURL_TYPE_PUT,
+            self::CURL_TYPE_GET,
             'PATCH'
         ])) {
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
