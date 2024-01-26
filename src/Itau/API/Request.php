@@ -102,7 +102,6 @@ class Request
 
     public function get(Itau $credentials, $fullUrl, $params = null)
     {
-        var_dump(['fullUrl' => $fullUrl, 'method: ' => self::CURL_TYPE_GET, 'params' => $params]);
         return $this->send($credentials, $fullUrl, self::CURL_TYPE_GET, $params);
     }
 
