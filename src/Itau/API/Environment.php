@@ -40,7 +40,6 @@ class Environment
             'https://secure.api.itau/pix_recebimentos/v2',
             'https://secure.api.itau/pix_recebimentos_conciliacoes/v2',
             'https://api.itau.com.br/cash_management/v2',
-            'https://api.itau.com.br/cash_management/v2',
             'https://secure.api.cloud.itau.com.br/boletoscash/v2'
         );
     }
