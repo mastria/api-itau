@@ -152,8 +152,8 @@ class Request
             curl_setopt($curl, CURLOPT_POST, 1);
             curl_setopt($curl, CURLOPT_POSTFIELDS, is_string($jsonBody) ? $jsonBody : json_encode($jsonBody));
         } else {
-            curl_setopt($curl, CURLOPT_POST, 1);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, '{}');
+            #curl_setopt($curl, CURLOPT_POST, 1);
+            #curl_setopt($curl, CURLOPT_POSTFIELDS, '{}');
         }
 
         curl_setopt_array($curl, $defaultCurlOptions);
