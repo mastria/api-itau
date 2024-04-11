@@ -50,7 +50,7 @@ class Request
         curl_setopt_array($curl, [
             CURLOPT_URL => $endpoint,
             CURLOPT_PORT => 443,
-            CURLOPT_VERBOSE => 1,
+            CURLOPT_VERBOSE => 0,
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => 'POST',
@@ -123,6 +123,7 @@ class Request
             CURLOPT_CONNECTTIMEOUT => 60,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_TIMEOUT => 60,
+            CURLOPT_VERBOSE => 0,
             CURLOPT_HTTPHEADER => array(
                 'Content-Type: application/json; charset=utf-8'
             ),
