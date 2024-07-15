@@ -17,7 +17,9 @@ class Juros implements JsonSerializable
     public function setJuros($codigo, $percentual): self
     {
         $this->codigo_tipo_juros = $codigo;
-        $this->percentual_juros = $percentual*100000;
+        if($codigo != self::SEM_JUROS){
+            $this->percentual_juros = $percentual*100000;
+        }
         return $this;
     }
 }
