@@ -4,7 +4,7 @@ namespace Itau\API;
 trait TraitEntity
 {
 
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $entity = clone $this;
 
