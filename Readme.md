@@ -52,8 +52,8 @@ try{
     $itau = new Itau(
         "clientID",
         "secretToken",
-        "caminhoCertificado",
-        "caminhoCertificadoKey"
+        __DIR__ . "/caminhoCertificado",
+        __DIR__ . "/caminhoCertificadoKey"
     );
 
     #Descomente este trecho caso queira imprimir na tela o JSON da requisição
@@ -86,8 +86,8 @@ try{
     $itau = new Itau(
         "clientID",
         "secretToken",
-        "caminhoCertificado",
-        "caminhoCertificadoKey"
+        __DIR__ . "/caminhoCertificado",
+        __DIR__ . "/caminhoCertificadoKey"
     );
 
     #Descomente este trecho caso queira imprimir na tela o JSON da requisição
@@ -153,7 +153,7 @@ Juros::PERCENTUAL_MENSAL = Percentual mensal
 ##### Valor Juros
 1 = 1% am
 
-#### API Alterar Vencimento:
+#### API Baixar Boleto:
 
 **ATENÇÃO: O clientId, SecretToken e certificados devem ser diferentes do utilizado na API do PIX e Bolecode**
 
@@ -168,8 +168,8 @@ try{
     $itau = new Itau(
         "clientID",
         "secretToken",
-        "caminhoCertificado",
-        "caminhoCertificadoKey"
+        __DIR__ . "/caminhoCertificado",
+        __DIR__ . "/caminhoCertificadoKey"
     );
 
     #Descomente este trecho caso queira imprimir na tela o JSON da requisição
@@ -185,7 +185,41 @@ try{
 }
 ```
 
-#### API Baixar Boleto:
+#### API Alterar Valor:
+
+**ATENÇÃO: O clientId, SecretToken e certificados devem ser diferentes do utilizado na API do PIX e Bolecode**
+
+```php
+<?php
+
+require __DIR__ . "/../vendor/autoload.php";
+
+use Itau\API\Itau;
+
+try{
+    $itau = new Itau(
+        "clientID",
+        "secretToken",
+        __DIR__ . "/caminhoCertificado",
+        __DIR__ . "/caminhoCertificadoKey"
+    );
+
+    #Descomente este trecho caso queira imprimir na tela o JSON da requisição
+    #$itau->setDebug(true);
+
+    $response = $itau->alterarValorBoleto(
+        'agencia', 'contaComDVSemTraço', 'cateira(geralmente 109)', 'nossoNumeroSemDV',
+        new Valor('100.00')
+    );
+    
+    if($response->getStatusCode() == 204){
+        //Sucesso quando retornado o status code 204
+    }
+} catch(Exception $e){
+
+}
+```
+#### API Alterar Vencimento:
 ```php
 <?php
 
@@ -198,14 +232,14 @@ try{
     $itau = new Itau(
         "clientID",
         "secretToken",
-        "caminhoCertificado",
-        "caminhoCertificadoKey"
+        __DIR__ . "/caminhoCertificado",
+        __DIR__ . "/caminhoCertificadoKey"
     );
 
     #Descomente este trecho caso queira imprimir na tela o JSON da requisição
     #$itau->setDebug(true);
 
-    $response = $itau->baixarBoleto(
+    $response = $itau->alterarVencimentoBoleto(
         'agencia', 'contaComDVSemTraço', 'cateira(geralmente 109)', 'nossoNumeroSemDV',
         new Vencimento('novoVencimento (Y-m-d)')
     );
