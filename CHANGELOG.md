@@ -7,6 +7,8 @@ O formato segue o [Keep a Changelog](https://keepachangelog.com/), e este projet
 ## [2.1.19]
 ### Adicionado
 - Classe de tratamento de string para remoção de acentos e caracteres especiais.
+- Funcionalidade de alteração de valor de boleto
+- Melhorias no manual
 
 ### Corrigido
 - Textos de endereços.
