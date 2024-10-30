@@ -2,6 +2,7 @@
 
 namespace Itau\API\BoleCode;
 
+use Itau\API\StringHelper;
 use Itau\API\TraitEntity;
 use JsonSerializable;
 
@@ -37,11 +38,6 @@ class Endereco implements JsonSerializable
         if(empty($value)){
             return null;
         }
-        return mb_substr($this->textClearSpecialChar($value), 0, $count);
-    }
-
-    public function textClearSpecialChar(string $value): ?string
-    {
-        return preg_replace("/[^\w]/", "", $value);
+        return mb_substr(StringHelper::removerAcentos($value), 0, $count);
     }
 }
