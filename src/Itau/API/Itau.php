@@ -7,6 +7,7 @@ use Itau\API\Boleto\Boleto;
 use Itau\API\Boleto\BoletoResponse;
 use Itau\API\Pix\Pix;
 use Itau\API\Pix\PixResponse;
+use Itau\API\Valor\Valor;
 use Itau\API\Vencimento\Vencimento;
 
 /**
@@ -205,6 +206,18 @@ class Itau
         $path = str_pad($agencia, 4, '0', STR_PAD_LEFT).str_pad($contaComDigito, 8, '0', STR_PAD_LEFT).str_pad($carteira, 3, '0', STR_PAD_LEFT).str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
         $request = new Request($this);
         $response = $request->patch($this, "{$this->getEnvironment()->getApiBoletoUrl()}/boletos/{$path}/data_vencimento", $vencimento->toJSON());
+        $boletoResponse->mapperJson($response);
+
+        return $boletoResponse;
+    }
+
+    public function alterarValorBoleto($agencia, $contaComDigito, $carteira, $nossoNumero, Valor $valor)
+    {
+        $boletoResponse = new BoletoResponse();
+
+        $path = str_pad($agencia, 4, '0', STR_PAD_LEFT).str_pad($contaComDigito, 8, '0', STR_PAD_LEFT).str_pad($carteira, 3, '0', STR_PAD_LEFT).str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
+        $request = new Request($this);
+        $response = $request->patch($this, "{$this->getEnvironment()->getApiBoletoUrl()}/boletos/{$path}/valor_nominal", $valor->toJSON());
         $boletoResponse->mapperJson($response);
 
         return $boletoResponse;
