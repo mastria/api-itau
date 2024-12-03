@@ -30,16 +30,6 @@ class Request
         }
     }
 
-    public function requestCertificate(string $token)
-    {
-        $endpoint = 'sts.itau.com.br/seguranca/v1/certificado/solicitacao';
-        $headers = [
-            'Content-Type: text/plain',
-            'Authorization: Bearer '.$token
-        ];
-
-    }
-    
     public function auth(Itau $credentials)
     {       
         $endpoint = $credentials->getEnvironment()->getApiUrlAuth();
@@ -100,7 +90,14 @@ class Request
             throw new ItauException("Empty response, curl_error: $errorMessage", $statusCode);
         }
 
-        return $response;
+        $responseDecode = json_decode($response, true);
+
+        if (is_array($responseDecode) && isset($responseDecode['error'])) {
+            throw new ItauException($responseDecode['error_description'], 100);
+        }
+        $credentials->setAuthorizationToken($responseDecode["access_token"]);
+
+        return $credentials;
     }    
 
     public function get(Itau $credentials, $fullUrl, $params = null)
