@@ -13,7 +13,7 @@ class ItauCertificate
 {
     public function requestCertificate(string $token, string $certificadoCSR)
     {
-        $endpoint = 'sts.itau.com.br/seguranca/v1/certificado/solicitacao';
+        $endpoint = 'https://sts.itau.com.br/seguranca/v1/certificado/solicitacao';
         $headers = [
             'Content-Type: text/plain',
             'Authorization: Bearer ' . $token
@@ -37,29 +37,26 @@ class ItauCertificate
             throw new Exception('CURL Error: ' . $error, 100);
         }
 
-        // Verify error
-        if ($response === false) {
-            $errorMessage = curl_error($curl);
-        }
-
         $statusCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-        
+
+        // Verifica status HTTP
         if ($statusCode >= 400) {
-            // TODO see what it means code 100
-            throw new Exception($response, 100);
+            throw new Exception("HTTP Error: $statusCode - $response", $statusCode);
         }
-        // Status code 204 don't have content. That means $response will be always false
-        // Provides a custom content for $response to avoid error in the next if logic
+
+        // Lógica para 204
         if ($statusCode === 204) {
             return [
                 'status_code' => 204
             ];
         }
 
-        if (! $response) {
-            throw new Exception("Empty response, curl_error: $errorMessage", $statusCode);
+        // Verifica resposta vazia
+        if (empty($response)) {
+            throw new Exception('Empty response received from server.', $statusCode);
         }
+
         return $response;
     }
 }
