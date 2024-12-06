@@ -3,6 +3,7 @@
 namespace Itau\API;
 
 use Exception;
+use Itau\API\Exception\ItauException;
 
 /**
  * Class Itau
@@ -34,7 +35,7 @@ class ItauCertificate
         if ($response === false) {
             $error = curl_error($curl);
             curl_close($curl);
-            throw new Exception('CURL Error: ' . $error, 100);
+            throw new ItauException('CURL Error: ' . $error, 100);
         }
 
         $statusCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
@@ -42,7 +43,7 @@ class ItauCertificate
 
         // Verifica status HTTP
         if ($statusCode >= 400) {
-            throw new Exception("HTTP Error: $statusCode - $response", $statusCode);
+            throw new ItauException("HTTP Error: $statusCode - $response", $statusCode);
         }
 
         // Lógica para 204
@@ -54,7 +55,7 @@ class ItauCertificate
 
         // Verifica resposta vazia
         if (empty($response)) {
-            throw new Exception('Empty response received from server.', $statusCode);
+            throw new ItauException('Empty response received from server.', $statusCode);
         }
 
         return $response;
