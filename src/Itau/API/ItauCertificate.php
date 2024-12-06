@@ -48,10 +48,13 @@ var_dump($response);
 var_dump($statusCode);
         // Verifica status HTTP
         if ($statusCode >= 400) {
-            $array = json_decode($response);
-            var_dump($array);
-            $mensagem = $array['mensagem'];
-            throw new ItauException("HTTP Error: $statusCode - $mensagem", $statusCode);
+            $obj = json_decode($response);
+            $acao = '';
+            $mensagem = $obj->mensagem;
+            if(isset($obj->acao)){
+                $acao = "- {$obj->acao}";
+            }
+            throw new ItauException("HTTP Error: $statusCode - $mensagem {$acao}", $statusCode);
         }
 
         // Lógica para 204
