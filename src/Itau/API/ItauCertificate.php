@@ -30,7 +30,11 @@ class ItauCertificate
             CURLOPT_POSTFIELDS => $certificadoCSR,
         ]);
 
-        $response = curl_exec($curl);
+        try {
+            $response = curl_exec($curl);
+        } catch (Exception $e) {
+            throw new ItauException($e->getMessage(), 100);
+        }
 
         if ($response === false) {
             $error = curl_error($curl);
