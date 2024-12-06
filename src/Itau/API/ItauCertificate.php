@@ -36,6 +36,7 @@ class ItauCertificate
             throw new ItauException($e->getMessage(), 100);
         }
 echo 'Passou da response';
+var_dump($response);
         if ($response === false) {
             $error = curl_error($curl);
             curl_close($curl);
@@ -44,7 +45,7 @@ echo 'Passou da response';
 
         $statusCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
-
+var_dump($statusCode);
         // Verifica status HTTP
         if ($statusCode >= 400) {
             throw new ItauException("HTTP Error: $statusCode - $response", $statusCode);
