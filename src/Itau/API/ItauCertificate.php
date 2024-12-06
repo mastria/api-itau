@@ -29,13 +29,13 @@ class ItauCertificate
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => $certificadoCSR,
         ]);
-
+        echo 'ANTES DA RESONSE';
         try {
             $response = curl_exec($curl);
         } catch (Exception $e) {
             throw new ItauException($e->getMessage(), 100);
         }
-
+echo 'Passou da response';
         if ($response === false) {
             $error = curl_error($curl);
             curl_close($curl);
