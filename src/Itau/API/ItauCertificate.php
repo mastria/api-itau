@@ -6,15 +6,31 @@ use Exception;
 use Itau\API\Exception\ItauException;
 
 /**
- * Class Itau
+ * Class ItauCertificate
  *
  * @package Itau\API
  */
 class ItauCertificate
 {
-    public function requestCertificate(string $token, string $certificadoCSR)
+    private string $endpoint = 'https://sts.itau.com.br/seguranca/v1/certificado/solicitacao';
+
+    public function criarCertificado(string $token, string $certificadoCSR)
     {
-        $endpoint = 'https://sts.itau.com.br/seguranca/v1/certificado/solicitacao';
+        return $this->executeRequest($token, $certificadoCSR);
+    }
+
+    public function renovarCertificado(Itau $credentials, string $certificadoCSR)
+    {
+        if (!$credentials->getAuthorizationToken()) {
+            new Request($credentials);
+        }
+        $token = $credentials->getAuthorizationToken();
+
+        return $this->executeRequest($token, $certificadoCSR);
+    }
+
+    private function executeRequest(string $token, string $certificadoCSR)
+    {
         $headers = [
             'Content-Type: text/plain',
             'Authorization: Bearer ' . $token
@@ -23,7 +39,7 @@ class ItauCertificate
         $curl = curl_init();
 
         curl_setopt_array($curl, [
-            CURLOPT_URL => $endpoint,
+            CURLOPT_URL => $this->endpoint,
             CURLOPT_HTTPHEADER => $headers,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_CUSTOMREQUEST => 'POST',
@@ -33,6 +49,7 @@ class ItauCertificate
         try {
             $response = curl_exec($curl);
         } catch (Exception $e) {
+            curl_close($curl);
             throw new ItauException($e->getMessage(), 100);
         }
 
@@ -48,12 +65,10 @@ class ItauCertificate
         // Verifica status HTTP
         if ($statusCode >= 400) {
             $obj = json_decode($response);
-            $acao = '';
-            $mensagem = $obj->mensagem;
-            if(isset($obj->acao)){
-                $acao = "- {$obj->acao}";
-            }
-            throw new ItauException("HTTP Error: $statusCode - $mensagem {$acao}", $statusCode);
+            $acao = $obj->acao ?? '';
+            $mensagem = $obj->mensagem ?? 'Erro desconhecido';
+            $acaoText = $acao ? "- {$acao}" : '';
+            throw new ItauException("HTTP Error: $statusCode - $mensagem {$acaoText}", $statusCode);
         }
 
         // Lógica para 204
