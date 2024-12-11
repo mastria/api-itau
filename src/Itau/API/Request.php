@@ -66,7 +66,9 @@ class Request
 
         try {
             $response = curl_exec($curl);
+            var_dump($response);
         } catch (Exception $e) {
+            var_dump($e->getMessage());
             throw new ItauException($e->getMessage(), 100);
         }
         // Verify error
