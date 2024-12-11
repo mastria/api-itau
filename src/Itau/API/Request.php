@@ -46,10 +46,7 @@ class Request
         ];
 
         $curl = curl_init();
-        echo '<hr>
-        DENTRO DA REQUEST<br>';
-        var_dump($credentials->getCertificateKey());
-        echo '<hr>';
+
         curl_setopt_array($curl, [
             CURLOPT_URL => $endpoint,
             CURLOPT_PORT => 443,
@@ -66,9 +63,7 @@ class Request
 
         try {
             $response = curl_exec($curl);
-            var_dump($response);
         } catch (Exception $e) {
-            var_dump($e->getMessage());
             throw new ItauException($e->getMessage(), 100);
         }
         // Verify error
