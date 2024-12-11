@@ -21,11 +21,16 @@ class ItauCertificate
 
     public function renovarCertificado(Itau $credentials, string $certificadoCSR)
     {
+        echo "<h1>API</h1>";
+        var_dump($credentials->getAuthorizationToken());
         if (!$credentials->getAuthorizationToken()) {
+            echo '<hr>';
+            var_dump($credentials);
             new Request($credentials);
         }
         $token = $credentials->getAuthorizationToken();
-
+        echo '<hr>';
+        var_dump($token);
         return $this->executeRequest($token, $certificadoCSR);
     }
 
