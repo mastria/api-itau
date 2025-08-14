@@ -1,6 +1,6 @@
 {
-    "name":"leandroferreirama/api-itau",
-    "description":"SDK php para integração com a API Itau",
+    "name":"mastria/api-itau",
+    "description":"SDK PHP para integração com a API Itaú",
     "minimum-stability":"stable",
     "license":"MIT",
     "type":"library",
@@ -16,7 +16,11 @@
         {
             "name":"Leandro Ferreira",
             "email":"suporte@integracaosistema.com.br"
+        },
+        {
+            "name":"Guilherme Mastria",
+            "email":"guilherme@mastria.dev.br"
         }
     ],
-    "homepage":"https://github.com/leandroferreirama/api-itau"
+    "homepage":"https://github.com/mastria/api-itau"
 }
