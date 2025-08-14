@@ -24,6 +24,7 @@ class Itau
     private string $certificateKey;
     private $environment;
     private $authorizationToken;
+    private ?TokenCache $tokenCache = null;
 
     private $debug = false;
 
@@ -130,6 +131,63 @@ class Itau
         $this->authorizationToken = (string) $authorizationToken;
 
         return $this;
+    }
+
+    /**
+     * Configura o cache de token
+     *
+     * @param string|null $cachePath Caminho customizado para o arquivo de cache (opcional)
+     * @param int $tokenLifetime Tempo de vida do token em segundos (padrão: 300s/5min)
+     * @return self
+     */
+    public function enableTokenCache(?string $cachePath = null, int $tokenLifetime = 300): self
+    {
+        $this->tokenCache = new TokenCache($cachePath, $tokenLifetime);
+        return $this;
+    }
+
+    /**
+     * Desabilita o cache de token
+     *
+     * @return self
+     */
+    public function disableTokenCache(): self
+    {
+        $this->tokenCache = null;
+        return $this;
+    }
+
+    /**
+     * Verifica se o cache de token está habilitado
+     *
+     * @return bool
+     */
+    public function isTokenCacheEnabled(): bool
+    {
+        return $this->tokenCache !== null;
+    }
+
+    /**
+     * Obtém a instância do cache de token
+     *
+     * @return TokenCache|null
+     */
+    public function getTokenCache(): ?TokenCache
+    {
+        return $this->tokenCache;
+    }
+
+    /**
+     * Limpa o cache de token
+     *
+     * @return bool True se limpou com sucesso
+     */
+    public function clearTokenCache(): bool
+    {
+        if ($this->tokenCache !== null) {
+            return $this->tokenCache->clearCache();
+        }
+        return false;
     }
 
     /**

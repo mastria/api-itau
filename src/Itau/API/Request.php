@@ -25,6 +25,17 @@ class Request
      */
     public function __construct(Itau $credentials)
     {
+        if ($credentials->isTokenCacheEnabled()) {
+            $tokenCache = $credentials->getTokenCache();
+            $cachedToken = $tokenCache->getValidToken($credentials->getClientId());
+            
+            if ($cachedToken !== null) {
+                // Usar token do cache
+                $credentials->setAuthorizationToken($cachedToken);
+                return;
+            }
+        }
+
         if (! $credentials->getAuthorizationToken()) {
             $this->auth($credentials);
         }
@@ -95,7 +106,14 @@ class Request
         if (is_array($responseDecode) && isset($responseDecode['error'])) {
             throw new ItauException($responseDecode['error_description'], 100);
         }
-        $credentials->setAuthorizationToken($responseDecode["access_token"]);
+        
+        $token = $responseDecode["access_token"];
+        $credentials->setAuthorizationToken($token);
+
+        if ($credentials->isTokenCacheEnabled()) {
+            $tokenCache = $credentials->getTokenCache();
+            $tokenCache->saveToken($token, $credentials->getClientId());
+        }
 
         return $credentials;
     }    
