@@ -1,4 +1,5 @@
 <?php
+
 namespace Itau\API;
 
 use Itau\API\BoleCode\BoleCode;
@@ -210,25 +211,30 @@ class Itau
         return $this;
     }
 
+    /**
+     * API para emitir um QR Code imediato em que o Itaú é responsável por criar o identificador do QR Code (txid).
+     *
+     * @param Pix $pix
+     * @return PixResponse
+     * @link https://devportal.itau.com.br/nossas-apis/itau-ep9-gtw-pix-recebimentos-ext-v2?tab=especificacaoTecnica#operation/post/cob
+     */
     public function pix(Pix $pix): PixResponse
     {
         $pixResponse = new PixResponse();
-        try{
+        try {
             if ($this->debug) {
                 print $pix->toJSON();
             }
 
             $request = new Request($this);
             $response = $request->post($this, "{$this->getEnvironment()->getApiPixUrl()}/cob", $pix->toJSON());
-           
-            
+
             // Add fields do not return in response
             $pixResponse->mapperJson($pix->toArray());
             // Add response fields
             $pixResponse->mapperJson($response);
             $pixResponse->setStatus(BaseResponse::STATUS_CONFIRMED);
             return $pixResponse;
-
         } catch (\Exception $e) {
             return $this->generateErrorResponse($pixResponse, $e);
         }
@@ -237,21 +243,20 @@ class Itau
     public function boleCode(BoleCode $boleCode): BoleCodeResponse
     {
         $boleCodeResponse = new BoleCodeResponse();
-        try{
+        try {
             if ($this->debug) {
                 print $boleCode->toJSON();
             }
 
             $request = new Request($this);
             $response = $request->post($this, "{$this->getEnvironment()->getApiBoleCodeUrl()}/boletos_pix", $boleCode->toJSON());
-           
+
             // Add fields do not return in response
             $boleCodeResponse->mapperJson($boleCode->toArray());
             // Add response fields
             $boleCodeResponse->mapperJson($response);
             $boleCodeResponse->setStatus(BaseResponse::STATUS_CONFIRMED);
             return $boleCodeResponse;
-
         } catch (\Exception $e) {
             return $this->generateErrorResponse($boleCodeResponse, $e);
         }
@@ -261,7 +266,7 @@ class Itau
     {
         $boletoResponse = new BoletoResponse();
 
-        $path = str_pad($agencia, 4, '0', STR_PAD_LEFT).str_pad($contaComDigito, 8, '0', STR_PAD_LEFT).str_pad($carteira, 3, '0', STR_PAD_LEFT).str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
+        $path = str_pad($agencia, 4, '0', STR_PAD_LEFT) . str_pad($contaComDigito, 8, '0', STR_PAD_LEFT) . str_pad($carteira, 3, '0', STR_PAD_LEFT) . str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
         $request = new Request($this);
         $response = $request->patch($this, "{$this->getEnvironment()->getApiBoletoUrl()}/boletos/{$path}/data_vencimento", $vencimento->toJSON());
         $boletoResponse->mapperJson($response);
@@ -273,7 +278,7 @@ class Itau
     {
         $boletoResponse = new BoletoResponse();
 
-        $path = str_pad($agencia, 4, '0', STR_PAD_LEFT).str_pad($contaComDigito, 8, '0', STR_PAD_LEFT).str_pad($carteira, 3, '0', STR_PAD_LEFT).str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
+        $path = str_pad($agencia, 4, '0', STR_PAD_LEFT) . str_pad($contaComDigito, 8, '0', STR_PAD_LEFT) . str_pad($carteira, 3, '0', STR_PAD_LEFT) . str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
         $request = new Request($this);
         $response = $request->patch($this, "{$this->getEnvironment()->getApiBoletoUrl()}/boletos/{$path}/valor_nominal", $valor->toJSON());
         $boletoResponse->mapperJson($response);
@@ -285,7 +290,7 @@ class Itau
     {
         $boletoResponse = new BoletoResponse();
 
-        $id_beneficiario = str_pad($agencia, 4, '0', STR_PAD_LEFT).str_pad($contaComDigito, 8, '0', STR_PAD_LEFT);
+        $id_beneficiario = str_pad($agencia, 4, '0', STR_PAD_LEFT) . str_pad($contaComDigito, 8, '0', STR_PAD_LEFT);
         $nosso_numero = str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
         $request = new Request($this);
         $response = $request->get($this, "{$this->getEnvironment()->getApiBoletoConsultaUrl()}/boletos?id_beneficiario={$id_beneficiario}&nosso_numero={$nosso_numero}");
@@ -300,7 +305,7 @@ class Itau
     {
         $boletoResponse = new BoletoResponse();
 
-        $path = str_pad($agencia, 4, '0', STR_PAD_LEFT).str_pad($contaComDigito, 8, '0', STR_PAD_LEFT).str_pad($carteira, 3, '0', STR_PAD_LEFT).str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
+        $path = str_pad($agencia, 4, '0', STR_PAD_LEFT) . str_pad($contaComDigito, 8, '0', STR_PAD_LEFT) . str_pad($carteira, 3, '0', STR_PAD_LEFT) . str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
         $request = new Request($this);
         $response = $request->patch($this, "{$this->getEnvironment()->getApiBoletoUrl()}/boletos/{$path}/baixa", '{}');
         // Add response fields
@@ -312,11 +317,11 @@ class Itau
     private function generateErrorResponse(BaseResponse $baseResponse, $e)
     {
         $baseResponse->mapperJson(json_decode($e->getMessage(), true));
-        
+
         if (empty($baseResponse->getStatus())) {
             $baseResponse->setStatus(BaseResponse::STATUS_ERROR);
         }
-        
+
         return $baseResponse;
     }
 }

@@ -8,7 +8,12 @@ class Valor implements \JsonSerializable
 {
     use TraitEntity;
 
-    private string $original;
+    private ?string $original;
+
+    public function __construct(?string $original = null)
+    {
+        $this->original = $original;
+    }
 
     public function setOriginal(string $original): self
     {

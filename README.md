@@ -1,4 +1,4 @@
-# API itaú
+# API Itaú
 
 [![Maintainer](http://img.shields.io/badge/maintainer-@mastria-blue.svg?style=flat-square)](https://twitter.com/mastria)
 [![Source Code](http://img.shields.io/badge/source-mastria/api%E2%80%93itau-blue.svg?style=flat-square)](https://github.com/mastria/api-itau)
@@ -9,18 +9,20 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/mastria/api-itau.svg?style=flat-square)](https://scrutinizer-ci.com/g/mastria/api-itau)
 [![Total Downloads](https://img.shields.io/packagist/dt/mastria/api-itau.svg?style=flat-square)](https://packagist.org/packages/mastria/api-itau)
 
-###### Esta api está habilitada a utilizar a API PIX do banco central, bolecode do Itaú, alteração e baixa utilizando a API de boleto do Itaú
+###### Esta API está habilitada a utilizar a API PIX do banco central, bolecode do Itaú, alteração e baixa utilizando a API de boleto do Itaú
 
-### IMPORTANTE
+### APIs de Referência
 
-- Para utilizar todas as funções da API é necessário realizar duas habilitações junto ao itaú. Uma servirá para consumir a api pix e bolecode, a outra para consumir a alteração de vencimento e baixa de boleto.
+[https://devportal.itau.com.br/nossas-apis/itau-ep9-gtw-pix-recebimentos-conciliacoes-v2-ext?tab=especificacaoTecnica](https://devportal.itau.com.br/nossas-apis/itau-ep9-gtw-pix-recebimentos-conciliacoes-v2-ext?tab=especificacaoTecnica)
+
+[https://devportal.itau.com.br/nossas-apis/itau-ep9-gtw-pix-recebimentos-ext-v2?tab=especificacaoTecnica#operation/post/cob](https://devportal.itau.com.br/nossas-apis/itau-ep9-gtw-pix-recebimentos-ext-v2?tab=especificacaoTecnica#operation/post/cob)
 
 ## Installation
 
-Api Itau é disponibilizado através do composer:
+API Itaú é disponibilizado através do composer:
 
 ```bash
-"mastria/api-itau": "^2.0"
+"mastria/api-itau": "^2.3"
 ```
 
 or run

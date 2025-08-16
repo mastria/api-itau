@@ -49,6 +49,11 @@ class BaseResponse implements \JsonSerializable
         return $this;
     }
 
+    public function getJson(): array
+    {
+        return json_decode($this->responseJSON, true);
+    }
+
     public function setStatusCode($status_code)
     {
         $this->status_code = $status_code;
