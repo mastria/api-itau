@@ -240,6 +240,49 @@ class Itau
         }
     }
 
+    /**
+     * API para consultar um PIX imediato específico através do identificador do QR Code (txid).
+     *
+     * @param string $txid
+     * @return PixResponse
+     * @link https://devportal.itau.com.br/nossas-apis/itau-ep9-gtw-pix-recebimentos-ext-v2?tab=especificacaoTecnica#operation/get/cob/{txid}
+     */
+    public function consultaPix(string $txid): PixResponse
+    {
+        $pixResponse = new PixResponse();
+        try {
+            $request = new Request($this);
+            $response = $request->get($this, "{$this->getEnvironment()->getApiPixUrl()}/cob/{$txid}");
+
+            // Add response fields
+            $pixResponse->mapperJson($response);
+            return $pixResponse;
+        } catch (\Exception $e) {
+            return $this->generateErrorResponse($pixResponse, $e);
+        }
+    }
+
+    /**
+     * API para consultar um QR Code imediato específico através do identificador do QR Code (txid).
+     *
+     * @param string $txid
+     * @return PixResponse
+     */
+    public function pixQRCode(string $txid): PixResponse
+    {
+        $pixResponse = new PixResponse();
+        try {
+            $request = new Request($this);
+            $response = $request->get($this, "{$this->getEnvironment()->getApiPixUrl()}/cob/{$txid}/qrcode");
+
+            // Add response fields
+            $pixResponse->mapperJson($response);
+            return $pixResponse;
+        } catch (\Exception $e) {
+            return $this->generateErrorResponse($pixResponse, $e);
+        }
+    }
+
     public function boleCode(BoleCode $boleCode): BoleCodeResponse
     {
         $boleCodeResponse = new BoleCodeResponse();
