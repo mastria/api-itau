@@ -283,6 +283,34 @@ class Itau
         }
     }
 
+    /**
+     * API para alterar ou cancelar um QR Code imediato.
+     *
+     * @param string $txid
+     * @return PixResponse
+     * @link https://devportal.itau.com.br/nossas-apis/itau-ep9-gtw-pix-recebimentos-ext-v2?tab=especificacaoTecnica#operation/patch/cob/{txid}
+     */
+    public function cancelarPix(string $txid): PixResponse
+    {
+        $pixResponse = new PixResponse();
+        try {
+            $request = new Request($this);
+            $response = $request->patch(
+                $this,
+                "{$this->getEnvironment()->getApiPixUrl()}/cob/{$txid}",
+                json_encode([
+                    'status' => 'REMOVIDA_PELO_USUARIO_RECEBEDOR'
+                ])
+            );
+
+            // Add response fields
+            $pixResponse->mapperJson($response);
+            return $pixResponse;
+        } catch (\Exception $e) {
+            return $this->generateErrorResponse($pixResponse, $e);
+        }
+    }
+
     public function boleCode(BoleCode $boleCode): BoleCodeResponse
     {
         $boleCodeResponse = new BoleCodeResponse();
