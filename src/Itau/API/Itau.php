@@ -357,14 +357,25 @@ class Itau
         return $boletoResponse;
     }
 
-    public function consultarBoleto($agencia, $contaComDigito, $nossoNumero)
+    /**
+     * API para alterar ou cancelar um QR Code imediato.
+     *
+     * @param string $agencia
+     * @param string $contaComDigito sem hífen
+     * @param string $carteira
+     * @param string $nossoNumero
+     * @return BoletoResponse
+     * @link https://devportal.itau.com.br/nossas-apis/itau-ep9-gtw-cash-management-ext-v2?tab=especificacaoTecnica#operation/get/boletos
+     */
+    public function consultarBoleto($agencia, $contaComDigito, $carteira, $nossoNumero)
     {
         $boletoResponse = new BoletoResponse();
 
         $id_beneficiario = str_pad($agencia, 4, '0', STR_PAD_LEFT) . str_pad($contaComDigito, 8, '0', STR_PAD_LEFT);
         $nosso_numero = str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
+        $carteira = str_pad($carteira, 3, '0', STR_PAD_LEFT);
         $request = new Request($this);
-        $response = $request->get($this, "{$this->getEnvironment()->getApiBoletoConsultaUrl()}/boletos?id_beneficiario={$id_beneficiario}&nosso_numero={$nosso_numero}");
+        $response = $request->get($this, "{$this->getEnvironment()->getApiBoletoConsultaUrl()}/boletos?id_beneficiario={$id_beneficiario}&codigo_carteira={$carteira}&nosso_numero={$nosso_numero}&view=specific");
 
         // Add response fields
         $boletoResponse->mapperJson($response);
@@ -372,13 +383,23 @@ class Itau
         return $boletoResponse;
     }
 
+    /**
+     * API responsável por efetuar a baixa de um boleto. O processo de baixa consiste na ação de invalidar o boleto.
+     *
+     * @param string $agencia
+     * @param string $contaComDigito sem hífen
+     * @param string $carteira
+     * @param string $nossoNumero
+     * @return BoletoResponse
+     * @link https://devportal.itau.com.br/nossas-apis/itau-ep9-gtw-cash-management-ext-v2?tab=especificacaoTecnica#operation/patch/boletos/{id_boleto}/baixa
+     */
     public function baixarBoleto($agencia, $contaComDigito, $carteira, $nossoNumero)
     {
         $boletoResponse = new BoletoResponse();
 
-        $path = str_pad($agencia, 4, '0', STR_PAD_LEFT) . str_pad($contaComDigito, 8, '0', STR_PAD_LEFT) . str_pad($carteira, 3, '0', STR_PAD_LEFT) . str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
+        $id_boleto = str_pad($agencia, 4, '0', STR_PAD_LEFT) . str_pad($contaComDigito, 8, '0', STR_PAD_LEFT) . str_pad($carteira, 3, '0', STR_PAD_LEFT) . str_pad($nossoNumero, 8, '0', STR_PAD_LEFT);
         $request = new Request($this);
-        $response = $request->patch($this, "{$this->getEnvironment()->getApiBoletoUrl()}/boletos/{$path}/baixa", '{}');
+        $response = $request->patch($this, "{$this->getEnvironment()->getApiBoletoUrl()}/boletos/{$id_boleto}/baixa", '{}');
         // Add response fields
         $boletoResponse->mapperJson($response);
 
