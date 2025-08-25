@@ -284,7 +284,7 @@ class Itau
     }
 
     /**
-     * API para alterar ou cancelar um QR Code imediato.
+     * API para cancelar um QR Code imediato.
      *
      * @param string $txid
      * @return PixResponse
@@ -358,7 +358,7 @@ class Itau
     }
 
     /**
-     * API para alterar ou cancelar um QR Code imediato.
+     * API para consultar lista de boletos por critérios específicos.
      *
      * @param string $agencia
      * @param string $contaComDigito sem hífen
