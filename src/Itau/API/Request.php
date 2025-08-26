@@ -1,4 +1,5 @@
 <?php
+
 namespace Itau\API;
 
 use Exception;
@@ -28,7 +29,7 @@ class Request
         if ($credentials->isTokenCacheEnabled()) {
             $tokenCache = $credentials->getTokenCache();
             $cachedToken = $tokenCache->getValidToken($credentials->getClientId());
-            
+
             if ($cachedToken !== null) {
                 // Usar token do cache
                 $credentials->setAuthorizationToken($cachedToken);
@@ -42,7 +43,7 @@ class Request
     }
 
     public function auth(Itau $credentials)
-    {       
+    {
         $endpoint = $credentials->getEnvironment()->getApiUrlAuth();
         $headers = [
             'Content-Type: application/x-www-form-urlencoded',
@@ -106,7 +107,7 @@ class Request
         if (is_array($responseDecode) && isset($responseDecode['error'])) {
             throw new ItauException($responseDecode['error_description'], 100);
         }
-        
+
         $token = $responseDecode["access_token"];
         $credentials->setAuthorizationToken($token);
 
@@ -116,7 +117,7 @@ class Request
         }
 
         return $credentials;
-    }    
+    }
 
     public function get(Itau $credentials, $fullUrl, $params = null)
     {
@@ -186,10 +187,22 @@ class Request
         // Verify error
         if ($response === false) {
             $errorMessage = curl_error($curl);
+            if ($credentials->getDebug()) {
+                echo "\n" .  __METHOD__ . ':' . __LINE__ . ' => ';
+                var_dump($errorMessage);
+            }
+        }
+        if ($credentials->getDebug()) {
+            echo "\n" .  __METHOD__ . ':' . __LINE__ . ' => ';
+            var_dump($response);
         }
 
         $statusCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
+        if ($credentials->getDebug()) {
+            echo "\n" . __METHOD__ . ':' . __LINE__ . ' => ';
+            var_dump($statusCode);
+        }
 
         if ($statusCode >= 400) {
             // TODO see what it means code 100
@@ -197,12 +210,12 @@ class Request
         }
 
         $responseDecode = json_decode($response, true);
-        if(is_null($responseDecode)){
+        if (is_null($responseDecode)) {
             $responseDecode = ['status_code' => $statusCode];
         } else {
             array_push($responseDecode, ['status_code' => $statusCode]);
         }
-        
+
         return $responseDecode;
     }
 }

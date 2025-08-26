@@ -223,7 +223,8 @@ class Itau
         $pixResponse = new PixResponse();
         try {
             if ($this->debug) {
-                print $pix->toJSON();
+                echo "\n" .  __METHOD__ . ':' . __LINE__ . ' => ';
+                var_dump($pix->toJSON());
             }
 
             $request = new Request($this);
@@ -316,7 +317,8 @@ class Itau
         $boleCodeResponse = new BoleCodeResponse();
         try {
             if ($this->debug) {
-                print $boleCode->toJSON();
+                echo "\n" .  __METHOD__ . ':' . __LINE__ . ' => ';
+                var_dump($boleCode->toJSON());
             }
 
             $request = new Request($this);
