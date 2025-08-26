@@ -81,6 +81,14 @@ class Request
         // Verify error
         if ($response === false) {
             $errorMessage = curl_error($curl);
+            if ($credentials->getDebug()) {
+                echo "\n" .  __METHOD__ . ':' . __LINE__ . ' => ';
+                var_dump($errorMessage);
+            }
+        }
+        if ($credentials->getDebug()) {
+            echo "\n" .  __METHOD__ . ':' . __LINE__ . ' => ';
+            var_dump($response);
         }
 
         $statusCode = (int) curl_getinfo($curl, CURLINFO_HTTP_CODE);
@@ -104,11 +112,22 @@ class Request
 
         $responseDecode = json_decode($response, true);
 
+        if ($credentials->getDebug()) {
+            echo "\n" .  __METHOD__ . ':' . __LINE__ . ' => ';
+            var_dump($responseDecode);
+        }
+
         if (is_array($responseDecode) && isset($responseDecode['error'])) {
             throw new ItauException($responseDecode['error_description'], 100);
         }
 
         $token = $responseDecode["access_token"];
+
+        if ($credentials->getDebug()) {
+            echo "\n" .  __METHOD__ . ':' . __LINE__ . ' => ';
+            var_dump($token);
+        }
+
         $credentials->setAuthorizationToken($token);
 
         if ($credentials->isTokenCacheEnabled()) {
