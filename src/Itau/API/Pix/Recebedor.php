@@ -87,7 +87,7 @@ class Recebedor implements \JsonSerializable
 
     public function setNome(string $nome): self
     {
-        if (strlen($nome) > 200) {
+        if (!is_null($nome) && strlen($nome) > 200) {
             throw new \InvalidArgumentException('Nome deve ter no máximo 200 caracteres');
         }
         $this->nome = $nome;
@@ -96,7 +96,7 @@ class Recebedor implements \JsonSerializable
 
     public function setLogradouro(?string $logradouro): self
     {
-        if (strlen($logradouro) > 200) {
+        if (!is_null($logradouro) && strlen($logradouro) > 200) {
             throw new \InvalidArgumentException('Logradouro deve ter no máximo 200 caracteres');
         }
         $this->logradouro = $logradouro;
@@ -105,7 +105,7 @@ class Recebedor implements \JsonSerializable
 
     public function setCidade(?string $cidade): self
     {
-        if (strlen($cidade) > 200) {
+        if (!is_null($cidade) && strlen($cidade) > 200) {
             throw new \InvalidArgumentException('Cidade deve ter no máximo 200 caracteres');
         }
         $this->cidade = $cidade;
@@ -114,7 +114,7 @@ class Recebedor implements \JsonSerializable
 
     public function setUf(?string $uf): self
     {
-        if (strlen($uf) > 2) {
+        if (!is_null($uf) && strlen($uf) > 2) {
             throw new \InvalidArgumentException('UF deve ter no máximo 2 caracteres');
         }
         $this->uf = $uf;
@@ -123,7 +123,7 @@ class Recebedor implements \JsonSerializable
 
     public function setCep(?string $cep): self
     {
-        if (strlen($cep) > 8) {
+        if (!is_null($cep) && strlen($cep) > 8) {
             throw new \InvalidArgumentException('CEP deve ter no máximo 8 caracteres');
         }
 

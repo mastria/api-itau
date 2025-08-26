@@ -49,7 +49,7 @@ class BaseResponse implements \JsonSerializable
         return $this;
     }
 
-    public function getJson(): array
+    public function getJson(): array|null
     {
         return json_decode($this->responseJSON, true);
     }
