@@ -2,6 +2,16 @@
 
 O formato segue o [Keep a Changelog](https://keepachangelog.com/), e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [2.5.0] - 2026-09-04
+
+### Adicionado
+
+- `Environment::custom()`: factory público para configurar manualmente as URLs de cada API (auth, pix, bolecode, boleto, boleto_consulta), permitindo que a aplicação consumidora sobrescreva os endpoints via `Itau::setEnvironment()` sem depender de uma nova versão do SDK.
+
+### Corrigido
+
+- `Environment::production()`: atualizados os domínios `secure.api.itau` → `secure.gateway.api.itau` e `api.itau.com.br` → `api.gateway.itau.com.br`, conforme migração de infraestrutura comunicada pelo Itaú.
+
 ## [2.3.0] - 2025-08-14
 
 ### Adicionado
