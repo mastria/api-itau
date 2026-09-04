@@ -35,13 +35,31 @@ class Environment
      */
     public static function production()
     {
-        return new Environment(
+        return self::custom(
             'https://sts.itau.com.br/api/oauth/token',
-            'https://secure.api.itau/pix_recebimentos/v2',
-            'https://secure.api.itau/pix_recebimentos_conciliacoes/v2',
-            'https://api.itau.com.br/cash_management/v2',
+            'https://secure.gateway.api.itau/pix_recebimentos/v2',
+            'https://secure.gateway.api.itau/pix_recebimentos_conciliacoes/v2',
+            'https://api.gateway.itau.com.br/cash_management/v2',
             'https://secure.api.cloud.itau.com.br/boletoscash/v2'
         );
+    }
+
+    /**
+     * Permite configurar manualmente as URLs de cada API, útil quando o Itaú
+     * migra domínios (ex.: descomissionamento de secure.api.itau/api.itau.com.br
+     * em favor de secure.gateway.api.itau/api.gateway.itau.com.br) e a aplicação
+     * consumidora precisa sobrescrever os padrões sem esperar uma nova versão do SDK.
+     *
+     * @return Environment
+     */
+    public static function custom(
+        string $apiAuth,
+        string $apiPix,
+        string $apiBolecode,
+        string $apiBoleto,
+        string $apiBoletoConsulta
+    ) {
+        return new Environment($apiAuth, $apiPix, $apiBolecode, $apiBoleto, $apiBoletoConsulta);
     }
 
     public function getApiPixUrl(): string
