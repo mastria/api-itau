@@ -11,12 +11,12 @@ class Valor implements \JsonSerializable
 
     public function __construct($valor)
     {
-        $this->valor_titulo = number_format($valor, 2, ".");
+        $this->valor_titulo = number_format($valor, 2, ".", "");
     }
 
     public function setValor($valor): self
     {
-        $this->valor_titulo = number_format($valor, 2, ".");
+        $this->valor_titulo = number_format($valor, 2, ".", "");
         return $this;
     }
 }

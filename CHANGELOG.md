@@ -2,6 +2,12 @@
 
 O formato segue o [Keep a Changelog](https://keepachangelog.com/), e este projeto adere ao [Versionamento Semântico](https://semver.org/lang/pt-BR/).
 
+## [2.5.1] - 2026-09-15
+
+### Corrigido
+
+- `Valor`: `number_format($valor, 2, ".")` não zerava o separador de milhar, gerando `valor_titulo` como `"1,120.98"` em vez de `"1120.98"` para valores >= 1000 — a API Itaú rejeitava esses valores com "Valor da cobrança inválido". Afetava `Itau::alterarValorBoleto()`.
+
 ## [2.5.0] - 2026-09-04
 
 ### Adicionado
